@@ -4,10 +4,9 @@
 // for buffering the input, determining direction, and sending 
 // outputs per channel. 
 //---------------------------------------------------------------------
-`include "packet_def.v"
-
 module input_controller #(
-    parameter PORT_ID = 0
+    parameter X = 0,
+    parameter Y = 0
 ) (
     input clk,
     input reset,
@@ -19,10 +18,19 @@ module input_controller #(
     output            ri,
 
     // Output to arbiter
+    input         [4:0]  grant,
     output reg    [63:0] packet_out,
-    output reg    [4:0]  request,
-    input      [4:0]  grant
+    output reg    [4:0]  request
 );
+    localparam NORTH = 0;
+    localparam EAST  = 1;
+    localparam SOUTH = 2;
+    localparam WEST  = 3;
+    localparam PE    = 4;
+
+    // Destination coordinate
+    wire [1:0] dest_x;
+    wire [1:0] dest_y;
 
     // Create buffer registers for the two virtual channels
     reg [63:0] buffer_even;
@@ -36,18 +44,20 @@ module input_controller #(
     reg       full_odd;
     reg       full_odd_d;
 
-    wire [63:0] active_packet;
-    wire        active_valid;
+    wire [63:0] forward_packet;  // This is the packet sitting in the input buffer waiting to be forwarded
+    wire        forward_valid;   // Whether there is valid data to forward based on polarity
     wire        forward;
 
 
+    //=======================================================================
     // Registers
+    //=======================================================================
     always @(posedge clk) begin
         if (reset) begin
-            buffer_even      <= 64'b0;
-            buffer_odd       <= 64'b0;
-            full_even <= 1'b0;
-            full_odd  <= 1'b0;
+            buffer_even <= 64'b0;
+            buffer_odd  <= 64'b0;
+            full_even   <= 1'b0;
+            full_odd    <= 1'b0;
         end else begin
             buffer_even <= buffer_even_d;
             buffer_odd  <= buffer_odd_d;
@@ -56,161 +66,90 @@ module input_controller #(
         end
     end
 
-    // Continuous assignments
+    //=======================================================================
+    // Combinational Logic
+    //=======================================================================
 
-    // This keeps track of which VC is active
-    assign active_packet = polarity ? buffer_odd : buffer_even;
-    assign active_valid   = polarity ? full_odd : full_even;
+    // Forward even buffer on even polarity, odd buffer on odd polarity
+    assign forward_packet = polarity ? buffer_odd : buffer_even;
+
+
+    // There is valid data to forward if the even buffer is full on even polarity, vice versa
+    assign forward_valid = polarity ? full_odd : full_even;
+
+    // Parse the packet waiting to be forwarded for necessary fields
+    assign dest_x = forward_packet[61:60];
+    assign dest_y = forward_packet[59:58];
+
+    // alternating vc, so ri is based on if the input buffer of the opposite polarity is empty
+    // - (on rising edge) cycle 1: even polarity, capture in odd buffer
+    // - (on rising edge) cycle 2: odd polarity, forward odd buffer to output buffer
+    // - (on rising edge) cycle 3: even polarity (odd was sent so it’s empty), send ri 
+    //   so odd buffer can capture
 
     assign ri = polarity ? !full_even : !full_odd;
 
-    // Forward only if an active request is granted
-    assign forward = active_valid && (|(grant & request));
+    //---------------------------------------------------------------------
+    // Buffer Logic:
+    // On odd polarity, capture into even buffer
+    // On even polarity, capture into odd buffer
+    //
+    // Combinationally set packet_out = forward_packet (let arbiter handle)
+    // but only deassert buffer full flag when grant is received so the next packet can be buffered
+    //---------------------------------------------------------------------
 
-    // Buffer Logic
     always @(*) begin
-        // Default assignments to avoid latches
         buffer_even_d = buffer_even;
         buffer_odd_d  = buffer_odd;
         full_even_d   = full_even;
         full_odd_d    = full_odd;
-
-        // Buffer logic per channel
-        // If router has valid data on input ports AND buffer is not full, buffer it
-        if (si && ri) begin
+        
+        if (si) begin
             if (polarity) begin
                 buffer_even_d = di;
                 full_even_d   = 1'b1;
-            end
-            else begin
+            end else begin
                 buffer_odd_d = di;
                 full_odd_d   = 1'b1;
             end
         end
 
-        if (forward) begin
-            if (polarity)
-                full_odd_d = 1'b0;
-            else
-                full_even_d = 1'b0;
+        if (forward_valid && |(request & grant)) begin
+            if (polarity) full_odd_d  = 1'b0;
+            else          full_even_d = 1'b0;
         end
     end
 
-
-
-    // Routing Logic: X-first routing
-    // ASSUMPTION: that all hop counts and direction bits are valid values
-    // For example, there will be no illegal routing like PE trying to route to itself
-    // or NESW inputs trying to route back to itself (e.g. north-to-north)
+    //----------------------------------------------------------------------------------------
+    // Routing logic: 
+    // Spec: (0,0) is the upper-left corner, x increases to the right, y increases downward.
+    //----------------------------------------------------------------------------------------
+    
     always @(*) begin
         request = 5'b0;
-        // Make sure there is valid data in the buffer
-        if (active_valid) begin
-            // X-first routing: prioritize routing in east-west direction
-            if ((active_packet[`HCX] != 4'd0)) begin
-                if (active_packet[`X_DIR] == 1'b0) begin
-                    request[`WEST] = 1'b1;
-                end else begin
-                    request[`EAST] = 1'b1;
-                end
-            // Route Y-direction if HCX = 0
-            end else if ((active_packet[`HCY] != 4'd0)) begin
-                if (active_packet[`Y_DIR] == 1'b0) begin
-                    request[`SOUTH] = 1'b1;
-                end else begin
-                    request[`NORTH] = 1'b1;
-                end
-            end else begin
-                // If hop count for x and y are both 0 then route to PE
-                request[`PE] = 1'b1;
-            end
-            
+
+        if (forward_valid) begin
+            // X-first routing
+            if      (dest_x > X) request[EAST]  = 1'b1;
+            else if (dest_x < X) request[WEST]  = 1'b1;
+            // Route Y-direction
+            else if (dest_y > Y) request[SOUTH] = 1'b1;
+            else if (dest_y < Y) request[NORTH] = 1'b1;
+            // Route to PE
+            else                 request[PE]    = 1'b1;
         end
     end
+
+
+    //---------------------------------------------------------------------
+    // Forwarding Logic
+    //---------------------------------------------------------------------
 
     always @(*) begin
-        packet_out = active_packet;
-
-        if (active_valid) begin
-            if (active_packet[`HCX] != 4'd0) begin
-                packet_out[`HCX] = active_packet[`HCX] - 4'd1;
-            end
-            else if (active_packet[`HCY] != 4'd0) begin
-                packet_out[`HCY] = active_packet[`HCY] - 4'd1;
-            end
-        end
+        packet_out = forward_packet;
     end
 
+
+
+
 endmodule
-
-/* Another routing implementation (more explicit)
-    case (PORT_ID) 
-                // North input: if hop count = 0, then go to PE, else go south
-                `NORTH: begin
-                    if (active_packet[`HCY] == 4'b0) begin
-                        request[`PE] = 1'b1;
-                    end else begin
-                        request[`SOUTH] = 1'b1;
-                    end
-                end
-
-                // East input: can go west, north, south, or PE
-                `EAST: begin
-                    if ((active_packet[`HCX] == 4'b0) && (active_packet[`HCY] == 4'b0)) begin
-                        request[`PE] = 1'b1;
-                    end else if (active_packet[`HCX] == 4'b0) begin
-                        if (active_packet[`Y_DIR] == 1'b0) begin
-                            request[`SOUTH] = 1'b1;
-                        end else begin
-                            request[`NORTH] = 1'b1;
-                        end
-                    end else begin
-                        request[`WEST] = 1'b1;
-                    end
-                end
-                
-                // South input: can go north or to PE
-                `SOUTH: begin
-                    if (active_packet[`HCY] == 4'b0) begin
-                        request[`PE] = 1'b1;
-                    end else begin
-                        request[`NORTH] = 1'b1;
-                    end
-                end
-
-                // West input: can go east, north, south, or PE
-                `WEST: begin
-                    if ((active_packet[`HCX] == 4'b0) && (active_packet[`HCY] == 4'b0)) begin
-                        request[`PE] = 1'b1;
-                    end else if (active_packet[`HCX] == 4'b0) begin
-                        if (active_packet[`Y_DIR] == 1'b0) begin
-                            request[`SOUTH] = 1'b1;
-                        end else begin
-                            request[`NORTH] = 1'b1;
-                        end
-                    end else begin
-                        request[`EAST] = 1'b1;
-                    end
-                end
-
-                // PE input: can go NESW
-                
-            `PE: begin
-                if (active_packet[`HCX] != 4'b0) begin
-                    if (active_packet[`X_DIR] == 1'b0)
-                        request[`WEST] = 1'b1;
-                    else
-                        request[`EAST] = 1'b1;
-                end
-                else if (active_packet[`HCY] != 4'b0) begin
-                    if (active_packet[`Y_DIR] == 1'b0)
-                        request[`SOUTH] = 1'b1;
-                    else
-                        request[`NORTH] = 1'b1;
-                end
-            end
-
-
-                default: request = 5'b0;
-            endcase
-*/

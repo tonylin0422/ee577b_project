@@ -1,3 +1,10 @@
+//=======================================================================
+// This module implements the output controller.
+// Each output port has an OC, which is wired to the other inputs (not itself), 
+// and the OC is responsible for arbitrating between the inputs, 
+// buffering the chosen packet, and outputting to the next node.
+//=======================================================================
+
 module output_controller (
     input clk,
     input reset,
@@ -190,21 +197,5 @@ module output_controller (
         data_out = polarity ? buffer_even : buffer_odd;
         so       = !reset && (ro & (polarity ? full_even : full_odd));
     end
-
-
-    
-
-
-
-
-    
-
-
-
-    
-
-
-    
-
 
 endmodule

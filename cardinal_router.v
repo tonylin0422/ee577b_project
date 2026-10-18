@@ -1,7 +1,7 @@
-
- //---------------------------------------------------------------------
- // This file includes the cardinal router module
- //---------------------------------------------------------------------
+//=======================================================================
+// This module implements the top-level design for a single router.
+// Each router has 5 input ports and 5 output ports.
+//=======================================================================
 
 module cardinal_router #(
     parameter X = 0,

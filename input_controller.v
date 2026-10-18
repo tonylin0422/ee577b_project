@@ -1,9 +1,10 @@
-//---------------------------------------------------------------------
-// This file implements the input controller. 
+//=======================================================================
+// This module implements the input controller. 
 // Each input port of the router has a controller which is responsible
 // for buffering the input, determining direction, and sending 
 // outputs per channel. 
-//---------------------------------------------------------------------
+//=======================================================================
+
 module input_controller #(
     parameter X = 0,
     parameter Y = 0

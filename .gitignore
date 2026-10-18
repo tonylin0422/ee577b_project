@@ -1,0 +1,24 @@
+# Design Compiler synthesis outputs
+netlist/
+report/
+.dc_work/
+*.svf
+
+# Cadence compilation and simulation outputs
+work/
+waves.shm/
+ncsim*
+ana~
+ana_syn~
+elab~
+elab_syn~
+*.log
+command.log
+filenames.log
+
+# Generated simulator/project metadata
+default.svf
+
+.simvision/
+
+tb/tb_ai_gen.v

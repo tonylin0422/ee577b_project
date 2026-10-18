@@ -1,0 +1,186 @@
+SHELL := /bin/bash
+
+TOP = tb_TM_ALU
+TOP_SYN = tb_TM_ALU
+DESIGN_NAME = TM_ALU
+
+SYN_SOURCE_FILE = ./src/$(DESIGN_NAME).v
+DESIGN_FILES = $(SYN_SOURCE_FILE)
+NETLIST_FILE = ./netlist/$(DESIGN_NAME)_syn.v
+SYN_SDF_FILE = ./netlist/$(DESIGN_NAME)_syn.sdf
+SYN_SDC_FILE = ./netlist/$(DESIGN_NAME)_syn.sdc
+TB_FILE = ./tb/tb_TM_ALU.v
+
+DW_SIM_DIR = $(SYNOPSYS_DC)/dw/sim_ver
+DW_SIM_FILES = \
+	$(DW_SIM_DIR)/DW02_mult.v \
+	$(DW_SIM_DIR)/DW01_add.v \
+	$(DW_SIM_DIR)/DW01_inc.v \
+	$(DW_SIM_DIR)/DW_div.v
+
+CELL_SIM_FILE = $(OSU45_LIB_DIR)/gscl45nm.v
+
+SIM_SCRIPT_FILE_GUI = ./scripts/runscript.tcl
+SIM_SYN_SCRIPT_FILE_GUI = ./scripts/runscript_syn.tcl
+SIM_SCRIPT_FILE_NO_GUI = ./scripts/runscript_nogui.tcl
+SIM_SYN_SCRIPT_FILE_NO_GUI = ./scripts/runscript_syn_nogui.tcl
+
+RTL_SIM_LOG = ./report/rtl_sim.log
+GATE_SIM_LOG = ./report/gate_sim.log
+SYN_LOG_FILE = ./report/dc.log
+LEC_LOG_FILE = ./report/TM_ALU.lec.log
+
+NCVLOG_SWITCHES = \
+	-STATUS \
+	-MESSAGES \
+	-UPDATE
+
+NCELAB_SWITCHES = \
+	-ACCESS +rwc \
+	-NCFATAL INVSUP \
+	-NCFATAL CUNOTB \
+	-ERRORMAX 20 \
+	-UPDATE \
+	-MESSAGES \
+	-TIMESCALE '1ns/1ps'
+
+NCELAB_SWITCHES_SYN = $(NCELAB_SWITCHES) -SDF_NOPATHEDGE
+
+NCSIM_SWITCHES_NO_GUI = \
+	-STATUS \
+	-NOCOPYRIGHT \
+	-MESSAGES \
+	-NCFATAL INVSUP \
+	-NOWARN DLBRLK \
+	-TCL \
+	-NOLOG \
+	-NOKEY \
+	-INPUT $(SIM_SCRIPT_FILE_NO_GUI)
+
+NCSIM_SWITCHES_NO_GUI_SYN = \
+	-STATUS \
+	-NOCOPYRIGHT \
+	-MESSAGES \
+	-NCFATAL INVSUP \
+	-NOWARN DLBRLK \
+	-TCL \
+	-NOLOG \
+	-NOKEY \
+	-INPUT $(SIM_SYN_SCRIPT_FILE_NO_GUI)
+
+NCSIM_SWITCHES_GUI = \
+	-STATUS \
+	-NOCOPYRIGHT \
+	-MESSAGES \
+	-NCFATAL INVSUP \
+	-NOWARN DLBRLK \
+	-TCL \
+	-NOLOG \
+	-NOKEY \
+	-INPUT $(SIM_SCRIPT_FILE_GUI) \
+	-GUI
+
+NCSIM_SWITCHES_GUI_SYN = \
+	-STATUS \
+	-NOCOPYRIGHT \
+	-MESSAGES \
+	-NCFATAL INVSUP \
+	-NOWARN DLBRLK \
+	-TCL \
+	-NOLOG \
+	-NOKEY \
+	-INPUT $(SIM_SYN_SCRIPT_FILE_GUI) \
+	-GUI
+
+export TOP TOP_SYN DESIGN_NAME
+
+.PHONY: all check sim simg syn sim_syn simg_syn lec clean clean_sim help
+
+all: check
+
+check:
+	$(MAKE) sim
+	$(MAKE) syn
+	$(MAKE) sim_syn
+	$(MAKE) lec
+
+ana~: $(DESIGN_FILES) $(TB_FILE)
+	@mkdir -p work report
+	@for f in $(DW_SIM_FILES); do \
+		test -r "$$f" || { echo "Missing DesignWare simulation model: $$f" >&2; exit 1; }; \
+		ncvlog $(NCVLOG_SWITCHES) -work work "$$f"; \
+	done
+	ncvlog $(NCVLOG_SWITCHES) -work work $(DESIGN_FILES)
+	ncvlog $(NCVLOG_SWITCHES) -work work $(TB_FILE)
+	@touch ana~
+
+ana_syn~: $(NETLIST_FILE) $(SYN_SDF_FILE) $(TB_FILE)
+	@mkdir -p work report
+	@test -r "$(CELL_SIM_FILE)" || { echo "Missing cell simulation library: $(CELL_SIM_FILE)" >&2; exit 1; }
+	ncvlog $(NCVLOG_SWITCHES) -work work $(CELL_SIM_FILE)
+	ncvlog $(NCVLOG_SWITCHES) -work work $(NETLIST_FILE)
+	ncvlog $(NCVLOG_SWITCHES) +define+GATE_SIM -work work $(TB_FILE)
+	@touch ana_syn~
+
+elab~: ana~
+	ncelab $(NCELAB_SWITCHES) work.$(TOP)
+	@touch elab~
+
+elab_syn~: ana_syn~
+	ncelab $(NCELAB_SWITCHES_SYN) work.$(TOP_SYN)
+	@touch elab_syn~
+
+sim: clean_sim elab~
+	@mkdir -p report
+	@set -o pipefail; ncsim $(NCSIM_SWITCHES_NO_GUI) work.$(TOP) 2>&1 | tee $(RTL_SIM_LOG)
+	@grep -q "TEST PASSED" $(RTL_SIM_LOG)
+	@! grep -q "TEST FAILED" $(RTL_SIM_LOG)
+
+simg: clean_sim elab~
+	ncsim $(NCSIM_SWITCHES_GUI) work.$(TOP)
+
+syn: $(SYN_SOURCE_FILE) scripts/syn.tcl
+	@test -n "$(SYNOPSYS_DC)" || { echo "SYNOPSYS_DC is unset; source setup_v1721.csh first." >&2; exit 1; }
+	@mkdir -p netlist report
+	dc_shell -f scripts/syn.tcl -output_log_file $(SYN_LOG_FILE)
+	@test -s $(NETLIST_FILE) -a -s $(SYN_SDF_FILE) -a -s $(SYN_SDC_FILE)
+	@! grep -q '^Error:' $(SYN_LOG_FILE)
+	@grep -q 'slack (MET)' ./report/$(DESIGN_NAME).timing
+	@! grep -q 'slack (VIOLATED)' ./report/$(DESIGN_NAME).timing
+
+sim_syn: clean_sim elab_syn~
+	@mkdir -p report
+	@set -o pipefail; ncsim $(NCSIM_SWITCHES_NO_GUI_SYN) work.$(TOP_SYN) 2>&1 | tee $(GATE_SIM_LOG)
+	@grep -q "TEST PASSED" $(GATE_SIM_LOG)
+	@! grep -q "TEST FAILED" $(GATE_SIM_LOG)
+	@! grep -qi "timing violation" $(GATE_SIM_LOG)
+	@grep -q 'Annotation completed with 0 Errors' ncelab.log
+	@grep -Eq 'Pathdelays = [0-9]+[[:space:]]+Annotated = 100\.00%' ncelab.log
+
+simg_syn: clean_sim elab_syn~
+	ncsim $(NCSIM_SWITCHES_GUI_SYN) work.$(TOP_SYN)
+
+lec: $(NETLIST_FILE) scripts/lec.do
+	@test -n "$(CONFORMAL_HOME)" || { echo "CONFORMAL_HOME is unset; source setup_v1721.csh first." >&2; exit 1; }
+	$(CONFORMAL_HOME)/bin/lec -L -NOGui -NOLicwait \
+		-Dofile scripts/lec.do -LOGfile $(LEC_LOG_FILE)
+	@! grep -q '^// Error:' $(LEC_LOG_FILE)
+	@awk '/^Equivalent[[:space:]]/ { if ($$NF + 0 > 0) eq = 1 } \
+	      /^Non-equivalent[[:space:]]/ { if ($$NF + 0 > 0) neq = 1 } \
+	      END { exit !(eq && !neq) }' $(LEC_LOG_FILE)
+
+clean_sim:
+	@rm -f ana~ ana_syn~ elab~ elab_syn~ sdf.log ncvlog.log ncelab.log ncsim.log command.log
+	@rm -rf work waves.shm ncsim.shm
+	@mkdir -p work
+
+clean: clean_sim
+	@rm -rf .dc_work
+	@rm -f default.svf
+
+help:
+	@echo "make sim      - self-checking explicit-DW RTL simulation"
+	@echo "make syn      - Design Compiler synthesis and reports"
+	@echo "make sim_syn  - self-checking synthesized-netlist/SDF simulation"
+	@echo "make lec      - RTL-to-gate formal equivalence check"
+	@echo "make check    - run all four stages in order"

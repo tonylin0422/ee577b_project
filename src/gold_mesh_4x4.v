@@ -366,7 +366,7 @@ module gold_mesh_4x4 #(parameter PACKET_SIZE = 64) (
 
                 // Instantiate the routers
 
-                cardinal_router #(.X(x), .Y(y)) cardinal_router_inst (
+                gold_router #(.X(x), .Y(y)) gold_router_inst (
                     .clk      (clk),
                     .reset    (reset),
                     .polarity (pol[x + 4*y]),

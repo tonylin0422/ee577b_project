@@ -88,7 +88,7 @@ module input_controller #(
     // - (on rising edge) cycle 3: even polarity (odd was sent so it’s empty), send ri 
     //   so odd buffer can capture
 
-    assign ri = reset || (polarity ? !full_even : !full_odd);
+    assign ri = (polarity ? !full_even : !full_odd);
 
     //---------------------------------------------------------------------
     // Buffer Logic:

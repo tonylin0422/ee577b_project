@@ -111,7 +111,7 @@ module output_controller (
         grant = 4'b0000;
 
         // If no one requests or buffer is full, grant nobody
-        if (reset || no_request || active_full) grant = 4'b0000;
+        if (no_request || active_full) grant = 4'b0000;
         else begin
             // If there is no contention, grant whoever was requesting
             if (!contention) grant = request;
@@ -195,7 +195,7 @@ module output_controller (
 
     always @(*) begin
         data_out = polarity ? buffer_even : buffer_odd;
-        so       = !reset && (ro & (polarity ? full_even : full_odd));
+        so       = (ro & (polarity ? full_even : full_odd));
     end
 
 endmodule

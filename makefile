@@ -43,18 +43,23 @@
 # top level module
 TOP = tb_gold_mesh_4x4
 TOP_SYN = tb_gold_mesh_4x4
-DESIGN_NAME = gold_mesh_4x4
-# DESIGN_NAME = cardinal_router
+#TOP = tb_cardinal_nic
+#TOP_SYN = tb_cardinal_nic
+ DESIGN_NAME = gold_mesh_4x4
+#DESIGN_NAME = gold_router
+#DESIGN_NAME = cardinal_nic
 
 # List of the design files
-DESIGN_FILES = ./design/*.v
+DESIGN_FILES = ./design/*.v ./src/cardinal_nic.v
 SYN_SOURCE_FILES = ./src/*.v
 NETLIST_FILES = ./netlist/$(DESIGN_NAME)_syn.v
 SYN_SDF_FILE = ./netlist/$(DESIGN_NAME)_syn.sdf
 
 # List of the testbench files
-TB_FILES = ./tb/tb_gold_mesh_4x4.v
-TB_SYN_FILES = ./tb/tb_gold_mesh_4x4.v
+TB_FILES = ./tb/tb_ai_gen.v
+TB_SYN_FILES = ./tb/tb_ai_gen.v
+#TB_FILES = ./tb/tb_cardinal_nic.v
+#TB_SYN_FILES = ./tb/tb_cardinal_nic.v
 
 INCLUDE_DIRECTORY = ./include
 

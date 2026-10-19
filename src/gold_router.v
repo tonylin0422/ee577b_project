@@ -3,7 +3,7 @@
 // Each router has 5 input ports and 5 output ports.
 //=======================================================================
 
-module cardinal_router #(
+module gold_router #(
     parameter X = 0,
     parameter Y = 0
 )(

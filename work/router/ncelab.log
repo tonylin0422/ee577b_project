@@ -1,0 +1,75 @@
+ncelab(64): 15.20-s086: (c) Copyright 1995-2020 Cadence Design Systems, Inc.
+TOOL:	ncelab(64)	15.20-s086: Started on Oct 21, 2026 at 23:27:19 PDT
+ncelab
+    -ACCESS +rwc
+    -NCFATAL INVSUP
+    -NCFATAL CUNOTB
+    -ERRORMAX 5
+    -UPDATE
+    -MESSAGES
+    -TIMESCALE 1ns/10ps
+    -LIBVERBOSE
+    work.tb_cardinal_router
+
+	Elaborating the design hierarchy:
+Resolving design unit 'cardinal_router' at 'tb_cardinal_router.dut'.
+		Caching library 'work' ....... Done
+	library: 'work' views: 'module' -> found
+Resolved design unit 'cardinal_router' at 'tb_cardinal_router.dut' to 'work.cardinal_router:module'.
+Resolving design unit 'input_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.n_input_controller_inst'.
+	library: 'work' views: 'module' -> found
+Resolved design unit 'input_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolving design unit 'output_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.n_output_controller_inst'.
+	library: 'work' views: 'module' -> found
+Resolved design unit 'output_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.dut@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_cardinal_router.neighbor' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_cardinal_router.neighbor@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		work.cardinal_router:module <0x6668ea66>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x7507db76>
+			streams:   9, words:  3190
+		work.input_controller:module <0x452aecef>
+			streams:  10, words:  6051
+		work.input_controller:module <0x51b719dc>
+			streams:  10, words:  7094
+		work.output_controller:module <0x0ba6c1fc>
+			streams:   8, words: 12590
+		work.output_controller:module <0x47a37633>
+			streams:   8, words: 15166
+		work.tb_cardinal_router:module <0x0c2ea89f>
+			streams:  98, words: 141888
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                23       4
+		Registers:             365     139
+		Scalar wires:          121       -
+		Expanded wires:         65      21
+		Vectored wires:        119       -
+		Always blocks:          74      10
+		Initial blocks:         27      27
+		Cont. assignments:     113      55
+		Pseudo assignments:     29      29
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: work.tb_cardinal_router:module
+TOOL:	ncelab(64)	15.20-s086: Exiting on Oct 21, 2026 at 23:27:19 PDT  (total: 00:00:00)

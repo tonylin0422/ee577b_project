@@ -1,0 +1,15 @@
+Phase=5 Time=602 ns Destination=5 Source=6 Packet Value=9401000600000050
+Phase=5 Time=606 ns Destination=5 Source=1 Packet Value=140100010000004c
+Phase=5 Time=610 ns Destination=5 Source=10 Packet Value=9403000a00000054
+Phase=5 Time=614 ns Destination=5 Source=7 Packet Value=1403000700000051
+Phase=5 Time=618 ns Destination=5 Source=4 Packet Value=940100040000004f
+Phase=5 Time=622 ns Destination=5 Source=9 Packet Value=1401000900000053
+Phase=5 Time=626 ns Destination=5 Source=2 Packet Value=940300020000004d
+Phase=5 Time=630 ns Destination=5 Source=3 Packet Value=140700030000004e
+Phase=5 Time=634 ns Destination=5 Source=12 Packet Value=9407000c00000056
+Phase=5 Time=638 ns Destination=5 Source=13 Packet Value=1403000d00000057
+Phase=5 Time=642 ns Destination=5 Source=0 Packet Value=940300000000004b
+Phase=5 Time=646 ns Destination=5 Source=11 Packet Value=1407000b00000055
+Phase=5 Time=650 ns Destination=5 Source=8 Packet Value=9403000800000052
+Phase=5 Time=654 ns Destination=5 Source=15 Packet Value=140f000f00000059
+Phase=5 Time=658 ns Destination=5 Source=14 Packet Value=9407000e00000058

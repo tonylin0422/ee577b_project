@@ -1,0 +1,20 @@
+ncvlog(64): 15.20-s086: (c) Copyright 1995-2020 Cadence Design Systems, Inc.
+TOOL:	ncvlog(64)	15.20-s086: Started on Oct 21, 2026 at 23:27:19 PDT
+ncvlog
+    -STATUS
+    -MESSAGES
+    -UPDATE
+    -INCDIR /home/bevab@vlab.usc.edu/ee577b/ee577b_project/include
+    -work work
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/cardinal_nic.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_nic.v
+
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/cardinal_nic.v
+	module work.cardinal_nic
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_nic.v
+	module work.tb_cardinal_nic
+		errors: 0, warnings: 0
+ncvlog: Memory Usage - 21.4M program + 20.4M data = 41.7M total
+ncvlog: CPU Usage - 0.0s system + 0.0s user = 0.0s total (0.0s, 74.3% cpu)
+TOOL:	ncvlog(64)	15.20-s086: Exiting on Oct 21, 2026 at 23:27:19 PDT  (total: 00:00:00)

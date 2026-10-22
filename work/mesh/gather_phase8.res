@@ -1,0 +1,15 @@
+Phase=8 Time=938 ns Destination=8 Source=9 Packet Value=8801000900000080
+Phase=8 Time=942 ns Destination=8 Source=4 Packet Value=080100040000007c
+Phase=8 Time=946 ns Destination=8 Source=5 Packet Value=880300050000007d
+Phase=8 Time=950 ns Destination=8 Source=10 Packet Value=0803000a00000081
+Phase=8 Time=954 ns Destination=8 Source=11 Packet Value=8807000b00000082
+Phase=8 Time=958 ns Destination=8 Source=12 Packet Value=0801000c00000083
+Phase=8 Time=962 ns Destination=8 Source=13 Packet Value=8803000d00000084
+Phase=8 Time=966 ns Destination=8 Source=0 Packet Value=0803000000000078
+Phase=8 Time=970 ns Destination=8 Source=1 Packet Value=8807000100000079
+Phase=8 Time=974 ns Destination=8 Source=14 Packet Value=0807000e00000085
+Phase=8 Time=978 ns Destination=8 Source=15 Packet Value=880f000f00000086
+Phase=8 Time=982 ns Destination=8 Source=6 Packet Value=080700060000007e
+Phase=8 Time=986 ns Destination=8 Source=7 Packet Value=880f00070000007f
+Phase=8 Time=990 ns Destination=8 Source=2 Packet Value=080f00020000007a
+Phase=8 Time=994 ns Destination=8 Source=3 Packet Value=881f00030000007b

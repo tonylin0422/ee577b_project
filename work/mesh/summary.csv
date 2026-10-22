@@ -1,0 +1,2 @@
+scenario,seed,count,load_pct,stall_cycles,vc_mode,injected,delivered,reset_discarded,errors,first_inject,last_delivery,release_edge
+gather,1,64,40,0,-1,240,240,0,0,5,444,-1

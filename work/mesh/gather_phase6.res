@@ -1,0 +1,15 @@
+Phase=6 Time=714 ns Destination=6 Source=7 Packet Value=a401000700000060
+Phase=6 Time=718 ns Destination=6 Source=2 Packet Value=240100020000005c
+Phase=6 Time=722 ns Destination=6 Source=11 Packet Value=a403000b00000064
+Phase=6 Time=726 ns Destination=6 Source=10 Packet Value=2401000a00000063
+Phase=6 Time=730 ns Destination=6 Source=5 Packet Value=a40100050000005f
+Phase=6 Time=734 ns Destination=6 Source=4 Packet Value=240300040000005e
+Phase=6 Time=738 ns Destination=6 Source=3 Packet Value=a40300030000005d
+Phase=6 Time=742 ns Destination=6 Source=0 Packet Value=240700000000005a
+Phase=6 Time=746 ns Destination=6 Source=13 Packet Value=a407000d00000066
+Phase=6 Time=750 ns Destination=6 Source=14 Packet Value=2403000e00000067
+Phase=6 Time=754 ns Destination=6 Source=1 Packet Value=a40300010000005b
+Phase=6 Time=758 ns Destination=6 Source=12 Packet Value=240f000c00000065
+Phase=6 Time=762 ns Destination=6 Source=9 Packet Value=a403000900000062
+Phase=6 Time=766 ns Destination=6 Source=8 Packet Value=2407000800000061
+Phase=6 Time=770 ns Destination=6 Source=15 Packet Value=a407000f00000068

@@ -1,0 +1,338 @@
+ncelab(64): 15.20-s086: (c) Copyright 1995-2020 Cadence Design Systems, Inc.
+TOOL:	ncelab(64)	15.20-s086: Started on Oct 21, 2026 at 23:27:19 PDT
+ncelab
+    -ACCESS +rwc
+    -NCFATAL INVSUP
+    -NCFATAL CUNOTB
+    -ERRORMAX 5
+    -UPDATE
+    -MESSAGES
+    -TIMESCALE 1ns/10ps
+    -LIBVERBOSE
+    work.tb_gold_mesh_4x4
+
+	Elaborating the design hierarchy:
+Resolving design unit 'gold_mesh_4x4' at 'tb_gold_mesh_4x4.dut'.
+		Caching library 'work' ....... Done
+	library: 'work' views: 'module' -> found
+Resolved design unit 'gold_mesh_4x4' at 'tb_gold_mesh_4x4.dut' to 'work.gold_mesh_4x4:module'.
+Resolving design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst'.
+	library: 'work' views: 'module' -> found
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolving design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst'.
+	library: 'work' views: 'module' -> found
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolving design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst'.
+	library: 'work' views: 'module' -> found
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[0].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[1].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[2].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[0].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[1].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[2].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'cardinal_router' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst' to 'work.cardinal_router:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.n_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.e_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.s_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.w_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'input_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_input_controller_inst' to 'work.input_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.n_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.e_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.s_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.w_output_controller_inst' to 'work.output_controller:module'.
+Resolved design unit 'output_controller' at 'tb_gold_mesh_4x4.dut@gold_mesh_4x4<module>.genrow[3].gencol[3].cardinal_router_inst@cardinal_router<module>.pe_output_controller_inst' to 'work.output_controller:module'.
+Resolving design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[0].probe_y[0].probe'.
+	library: 'work' views: 'module' -> found
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[0].probe_y[0].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[0].probe_y[1].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[0].probe_y[2].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[0].probe_y[3].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[1].probe_y[0].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[1].probe_y[1].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[1].probe_y[2].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[1].probe_y[3].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[2].probe_y[0].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[2].probe_y[1].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[2].probe_y[2].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[2].probe_y[3].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[3].probe_y[0].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[3].probe_y[1].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[3].probe_y[2].probe' to 'work.router_probe:module'.
+Resolved design unit 'router_probe' at 'tb_gold_mesh_4x4.probe_x[3].probe_y[3].probe' to 'work.router_probe:module'.
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		work.cardinal_router:module <0x0b8a315f>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x0f582ffa>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x18e5004f>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x1c371eea>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x20227090>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x24f06e35>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x334d4180>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x379f5f25>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x4b49913d>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x4f9b8f98>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x5826a02d>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x5cf4be88>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x60e1d0f2>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x6433ce57>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x738ee1e2>
+			streams:   9, words:  3190
+		work.cardinal_router:module <0x775cff47>
+			streams:   9, words:  3190
+		work.gold_mesh_4x4:module <0x5d729682>
+			streams: 192, words: 37590
+		work.input_controller:module <0x05a1e440>
+			streams:  10, words:  6449
+		work.input_controller:module <0x07ec7374>
+			streams:  10, words:  6447
+		work.input_controller:module <0x0ce46312>
+			streams:  10, words:  6449
+		work.input_controller:module <0x0ea9f426>
+			streams:  10, words:  6449
+		work.input_controller:module <0x25c196eb>
+			streams:  10, words:  6449
+		work.input_controller:module <0x278c01df>
+			streams:  10, words:  6445
+		work.input_controller:module <0x2c8411b9>
+			streams:  10, words:  6449
+		work.input_controller:module <0x2ec9868d>
+			streams:  10, words:  6447
+		work.input_controller:module <0x513cb6ee>
+			streams:  10, words:  6447
+		work.input_controller:module <0x537121da>
+			streams:  10, words:  6447
+		work.input_controller:module <0x587931bc>
+			streams:  10, words:  6447
+		work.input_controller:module <0x5a34a688>
+			streams:  10, words:  6449
+		work.input_controller:module <0x715cc445>
+			streams:  10, words:  6449
+		work.input_controller:module <0x73115371>
+			streams:  10, words:  6447
+		work.input_controller:module <0x78194317>
+			streams:  10, words:  6449
+		work.input_controller:module <0x7a54d423>
+			streams:  10, words:  6449
+		work.output_controller:module <0x014fd14e>
+			streams:   8, words: 14469
+		work.router_probe:module <0x0838cced>
+			streams:   1, words: 11714
+		work.router_probe:module <0x0e088eaa>
+			streams:   1, words: 11714
+		work.router_probe:module <0x1ad151e5>
+			streams:   1, words: 11714
+		work.router_probe:module <0x1ce113a2>
+			streams:   1, words: 11714
+		work.router_probe:module <0x283df049>
+			streams:   1, words: 11714
+		work.router_probe:module <0x2e0db20e>
+			streams:   1, words: 11678
+		work.router_probe:module <0x3ad46d41>
+			streams:   1, words: 11714
+		work.router_probe:module <0x3ce42f06>
+			streams:   1, words: 11714
+		work.router_probe:module <0x414c0269>
+			streams:   1, words: 11714
+		work.router_probe:module <0x477c402e>
+			streams:   1, words: 11714
+		work.router_probe:module <0x53a59f61>
+			streams:   1, words: 11714
+		work.router_probe:module <0x5595dd26>
+			streams:   1, words: 11714
+		work.router_probe:module <0x61493ecd>
+			streams:   1, words: 11714
+		work.router_probe:module <0x67797c8a>
+			streams:   1, words: 11714
+		work.router_probe:module <0x73a0a3c5>
+			streams:   1, words: 11714
+		work.router_probe:module <0x7590e182>
+			streams:   1, words: 11714
+		work.tb_gold_mesh_4x4:module <0x1c125ae5>
+			streams: 258, words: 153311
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                  Instances  Unique
+		Modules:                194       6
+		Registers:             2188     108
+		Scalar wires:          1090       -
+		Expanded wires:         320      80
+		Vectored wires:         896       -
+		Always blocks:          594      11
+		Initial blocks:          23      23
+		Cont. assignments:      844     150
+		Pseudo assignments:     322     322
+		Simulation timescale:   1ps
+	Writing initial simulation snapshot: work.tb_gold_mesh_4x4:module
+TOOL:	ncelab(64)	15.20-s086: Exiting on Oct 21, 2026 at 23:27:20 PDT  (total: 00:00:01)

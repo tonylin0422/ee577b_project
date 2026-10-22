@@ -1,0 +1,118 @@
+ncvlog(64): 15.20-s086: (c) Copyright 1995-2020 Cadence Design Systems, Inc.
+TOOL:	ncvlog(64)	15.20-s086: Started on Oct 21, 2026 at 23:27:19 PDT
+ncvlog
+    -STATUS
+    -MESSAGES
+    -UPDATE
+    -INCDIR /home/bevab@vlab.usc.edu/ee577b/ee577b_project/include
+    -work work
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/input_controller.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/output_controller.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/cardinal_router.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v
+
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/input_controller.v
+	module work.input_controller
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/output_controller.v
+	module work.output_controller
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/cardinal_router.v
+	module work.cardinal_router
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v
+        begin_case("startup_reset",1);apply_reset();drain();end_case();
+                                                  |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,456|50): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        begin_case("startup_reset",1);apply_reset();drain();end_case();
+                                                          |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,456|58): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        begin_case("startup_reset",1);apply_reset();drain();end_case();
+                                                                     |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,456|69): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            begin_case(next_label,2);allocate(p,o,v,1,id);inject_id(id);drain();end_case();
+                                                                              |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,466|78): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            begin_case(next_label,2);allocate(p,o,v,1,id);inject_id(id);drain();end_case();
+                                                                                         |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,466|89): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            begin_case(next_label,2);allocate(p,o,v,3,id);inject_id(id);drain();end_case();
+                                                                              |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,472|78): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            begin_case(next_label,2);allocate(p,o,v,3,id);inject_id(id);drain();end_case();
+                                                                                         |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,472|89): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            inject_id(id);drain();end_case();
+                                |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,478|32): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            inject_id(id);drain();end_case();
+                                           |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,478|43): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            allocate(PE,E,v,hop,id);inject_id(id);drain();
+                                                        |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,482|56): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        end_case();
+                 |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,484|17): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            ready_ctl[o]=1;drain();end_case();
+                                 |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,494|33): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            ready_ctl[o]=1;drain();end_case();
+                                            |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,494|44): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            apply_reset();
+                        |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,500|24): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+                drain();end_case();
+                      |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,506|22): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+                drain();end_case();
+                                 |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,506|33): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        apply_reset();drain();end_case();
+                    |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,513|20): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        apply_reset();drain();end_case();
+                            |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,513|28): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        apply_reset();drain();end_case();
+                                       |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,513|39): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        for(o=0;o<5;o=o+1) begin p=(o==PE)?N:PE;allocate(p,o,o%2,1,id);inject_id(id);drain();end
+                                                                                           |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,515|91): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        end_case();
+                 |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,516|17): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            @(negedge clk);si=0;ready_ctl=31;drain();end_case();
+                                                   |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,534|51): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+            @(negedge clk);si=0;ready_ctl=31;drain();end_case();
+                                                              |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,534|62): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        @(negedge clk);si=0;ready_ctl=31;drain();end_case();
+                                               |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,551|47): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        @(negedge clk);si=0;ready_ctl=31;drain();end_case();
+                                                          |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,551|58): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        apply_reset();link_mode=1;
+                    |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,555|20): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        peer_ready=1;drain();end_case();
+                           |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,560|27): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        peer_ready=1;drain();end_case();
+                                      |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,560|38): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        drain();end_case();link_mode=0;
+              |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,563|14): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+        drain();end_case();link_mode=0;
+                         |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_cardinal_router.v,563|25): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+	module work.tb_cardinal_router
+		errors: 0, warnings: 30
+ncvlog: Memory Usage - 21.4M program + 20.4M data = 41.8M total
+ncvlog: CPU Usage - 0.0s system + 0.0s user = 0.0s total (0.0s, 77.0% cpu)
+TOOL:	ncvlog(64)	15.20-s086: Exiting on Oct 21, 2026 at 23:27:19 PDT  (total: 00:00:00)

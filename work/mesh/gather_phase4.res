@@ -1,0 +1,15 @@
+Phase=4 Time=490 ns Destination=4 Source=5 Packet Value=8401000500000040
+Phase=4 Time=494 ns Destination=4 Source=0 Packet Value=040100000000003c
+Phase=4 Time=498 ns Destination=4 Source=1 Packet Value=840300010000003d
+Phase=4 Time=502 ns Destination=4 Source=6 Packet Value=0403000600000041
+Phase=4 Time=506 ns Destination=4 Source=7 Packet Value=8407000700000042
+Phase=4 Time=510 ns Destination=4 Source=8 Packet Value=0401000800000043
+Phase=4 Time=514 ns Destination=4 Source=9 Packet Value=8403000900000044
+Phase=4 Time=518 ns Destination=4 Source=2 Packet Value=040700020000003e
+Phase=4 Time=522 ns Destination=4 Source=3 Packet Value=840f00030000003f
+Phase=4 Time=526 ns Destination=4 Source=12 Packet Value=0403000c00000047
+Phase=4 Time=530 ns Destination=4 Source=13 Packet Value=8407000d00000048
+Phase=4 Time=534 ns Destination=4 Source=10 Packet Value=0407000a00000045
+Phase=4 Time=538 ns Destination=4 Source=11 Packet Value=840f000b00000046
+Phase=4 Time=542 ns Destination=4 Source=14 Packet Value=040f000e00000049
+Phase=4 Time=546 ns Destination=4 Source=15 Packet Value=841f000f0000004a

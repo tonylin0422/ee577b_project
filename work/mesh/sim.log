@@ -1,0 +1,11 @@
+Loading snapshot work.tb_gold_mesh_4x4:module .................... Done
+ncsim> probe -create -shm -all -depth all
+Created default SHM database ncsim.shm
+Created probe 1
+ncsim> run
+PASS mesh gather injected=240 delivered=240 reset_discarded=0
+Simulation complete via $finish(1) at time 1812 NS + 0
+/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v:317   $finish;
+ncsim> exit
+ncsim: Memory Usage - 38.6M program + 268.4M data = 307.1M total (310.9M Peak)
+ncsim: CPU Usage - 0.0s system + 0.1s user = 0.1s total (12.5s, 1.0% cpu)

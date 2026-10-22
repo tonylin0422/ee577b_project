@@ -1,0 +1,15 @@
+Phase=1 Time=154 ns Destination=1 Source=2 Packet Value=9001000200000010
+Phase=1 Time=158 ns Destination=1 Source=5 Packet Value=1001000500000013
+Phase=1 Time=162 ns Destination=1 Source=6 Packet Value=9003000600000014
+Phase=1 Time=166 ns Destination=1 Source=3 Packet Value=1003000300000011
+Phase=1 Time=170 ns Destination=1 Source=0 Packet Value=900100000000000f
+Phase=1 Time=174 ns Destination=1 Source=9 Packet Value=1003000900000017
+Phase=1 Time=178 ns Destination=1 Source=10 Packet Value=9007000a00000018
+Phase=1 Time=182 ns Destination=1 Source=7 Packet Value=1007000700000015
+Phase=1 Time=186 ns Destination=1 Source=4 Packet Value=9003000400000012
+Phase=1 Time=190 ns Destination=1 Source=13 Packet Value=1007000d0000001b
+Phase=1 Time=194 ns Destination=1 Source=14 Packet Value=900f000e0000001c
+Phase=1 Time=198 ns Destination=1 Source=11 Packet Value=100f000b00000019
+Phase=1 Time=202 ns Destination=1 Source=8 Packet Value=9007000800000016
+Phase=1 Time=206 ns Destination=1 Source=15 Packet Value=101f000f0000001d
+Phase=1 Time=210 ns Destination=1 Source=12 Packet Value=900f000c0000001a

@@ -1,0 +1,52 @@
+ncvlog(64): 15.20-s086: (c) Copyright 1995-2020 Cadence Design Systems, Inc.
+TOOL:	ncvlog(64)	15.20-s086: Started on Oct 21, 2026 at 23:27:19 PDT
+ncvlog
+    -STATUS
+    -MESSAGES
+    -UPDATE
+    -INCDIR /home/bevab@vlab.usc.edu/ee577b/ee577b_project/include
+    -work work
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/input_controller.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/output_controller.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/cardinal_router.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/gold_mesh_4x4.v
+    /home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v
+
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/input_controller.v
+	module work.input_controller
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/output_controller.v
+	module work.output_controller
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/cardinal_router.v
+	module work.cardinal_router
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/design/gold_mesh_4x4.v
+	module work.gold_mesh_4x4
+		errors: 0, warnings: 0
+file: /home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v
+  reset_network();start_cycle=cycle;
+                |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v,252|16): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+    allocate(s,d,v,cycle,id);send_one(id);drain();
+                                                |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v,255|48): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+    @(negedge clk);si=0;drain();
+                              |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v,269|30): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+   reset_network();
+                 |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v,277|17): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+   drain();if(aborted!=15)begin $display("FAIL"); $display("Reset expected 15 discarded packets, got %0d",aborted); $finish; end 
+         |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v,279|9): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+   @(negedge clk);si=0;drain();
+                             |
+ncvlog: *W,TMTPAR (/home/bevab@vlab.usc.edu/ee577b/ee577b_project/tb/tb_gold_mesh_4x4.v,309|29): A task enable with no arguments must not include an empty set of parentheses [10.2.2 (IEEE Std 1364-2005)].  The compiler has ignored the parentheses.  Use 'nchelp ncvlog TMTPAR'  for further information.
+	module work.tb_gold_mesh_4x4
+		errors: 0, warnings: 6
+	module work.router_probe
+		errors: 0, warnings: 0
+ncvlog: Memory Usage - 21.4M program + 20.8M data = 42.1M total
+ncvlog: CPU Usage - 0.0s system + 0.0s user = 0.0s total (0.0s, 78.5% cpu)
+TOOL:	ncvlog(64)	15.20-s086: Exiting on Oct 21, 2026 at 23:27:19 PDT  (total: 00:00:00)

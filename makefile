@@ -1,27 +1,30 @@
 # Cadence NCSIM verification. Source the course tool environment first.
-# make                         Elaborate NIC and router/mesh
-# make -j2 sim                 Run both simulations concurrently
-# make sim-nic / sim-router    Run one simulation
-# make simg-nic / simg-router   Open one simulation in the GUI
+# make                         Elaborate NIC, router, and mesh
+# make -j3 sim                 Run all three simulations concurrently
+# make sim-nic / sim-router / sim-mesh     Run one simulation
+# make simg-nic / simg-router / simg-mesh  Open one simulation in the GUI
 # make SIM=nic sim             Select a default simulation
-# make sim-router SIM_ARGS='+SCENARIO=latency +WAVES'
+# make sim-mesh SIM_ARGS='+SCENARIO=latency +WAVES'
 # Outputs (libraries, logs, waves, CSVs) live in work/<simulation>/.
-# The router target uses the existing full-mesh testbench.
+# router tests a standalone router; mesh tests the full 4x4 network.
 
 .DEFAULT_GOAL := all
 SIM ?= all
-SIMULATIONS := nic router
+SIMULATIONS := nic router mesh
 ifeq ($(filter $(SIM),all $(SIMULATIONS)),)
-$(error SIM must be all, nic, or router)
+$(error SIM must be all, nic, router, or mesh)
 endif
 SELECTED := $(if $(filter all,$(SIM)),$(SIMULATIONS),$(SIM))
 ROOT := $(CURDIR)
 TOP_nic := tb_cardinal_nic
-TOP_router := tb_gold_mesh_4x4
+TOP_router := tb_cardinal_router
+TOP_mesh := tb_gold_mesh_4x4
 DESIGN_nic := $(ROOT)/design/cardinal_nic.v
-DESIGN_router := $(addprefix $(ROOT)/design/,input_controller.v output_controller.v cardinal_router.v gold_mesh_4x4.v)
+DESIGN_router := $(addprefix $(ROOT)/design/,input_controller.v output_controller.v cardinal_router.v)
+DESIGN_mesh := $(DESIGN_router) $(ROOT)/design/gold_mesh_4x4.v
 TB_nic := $(ROOT)/tb/tb_cardinal_nic.v
-TB_router := $(ROOT)/tb/tb_gold_mesh_4x4.v
+TB_router := $(ROOT)/tb/tb_cardinal_router.v
+TB_mesh := $(ROOT)/tb/tb_gold_mesh_4x4.v
 INCLUDE_DIRECTORY := $(ROOT)/include
 INCLUDE_FILES := $(wildcard include/*)
 SIM_SCRIPT_FILE_GUI := $(ROOT)/scripts/runscript.tcl

@@ -1,0 +1,256 @@
+80200000 // VLD r1,0x0000
+80600001 // VLD r3,0x0001
+82A00001 // VLD r21,0x0001
+82C00002 // VLD r22,0x0002
+A861F804 // VNOTab r3,r1 (reserved rB=31: ignore or NOP)
+AAE3A8C3 // VXORad r23,r3,r21
+8AE00030 // VBEZ r23,0x0030 (ok0)
+F0000000 // VNOP
+AAE3B0C3 // VXORad r23,r3,r22
+8AE00030 // VBEZ r23,0x0030 (ok0)
+F0000000 // VNOP
+846000C8 // VSD r3,0x00C8
+80600001 // VLD r3,0x0001
+84600080 // VSD r3,0x0080
+80200003 // VLD r1,0x0003
+80600004 // VLD r3,0x0004
+82A00004 // VLD r21,0x0004
+82C00005 // VLD r22,0x0005
+A861F844 // VNOTah r3,r1 (reserved rB=31: ignore or NOP)
+AAE3A8C3 // VXORad r23,r3,r21
+8AE00068 // VBEZ r23,0x0068 (ok1)
+F0000000 // VNOP
+AAE3B0C3 // VXORad r23,r3,r22
+8AE00068 // VBEZ r23,0x0068 (ok1)
+F0000000 // VNOP
+846000C9 // VSD r3,0x00C9
+80600004 // VLD r3,0x0004
+84600081 // VSD r3,0x0081
+80200006 // VLD r1,0x0006
+80600007 // VLD r3,0x0007
+82A00007 // VLD r21,0x0007
+82C00008 // VLD r22,0x0008
+A861F884 // VNOTaw r3,r1 (reserved rB=31: ignore or NOP)
+AAE3A8C3 // VXORad r23,r3,r21
+8AE000A0 // VBEZ r23,0x00A0 (ok2)
+F0000000 // VNOP
+AAE3B0C3 // VXORad r23,r3,r22
+8AE000A0 // VBEZ r23,0x00A0 (ok2)
+F0000000 // VNOP
+846000CA // VSD r3,0x00CA
+80600007 // VLD r3,0x0007
+84600082 // VSD r3,0x0082
+80200009 // VLD r1,0x0009
+8060000A // VLD r3,0x000A
+82A0000A // VLD r21,0x000A
+82C0000B // VLD r22,0x000B
+A861F8C4 // VNOTad r3,r1 (reserved rB=31: ignore or NOP)
+AAE3A8C3 // VXORad r23,r3,r21
+8AE000D8 // VBEZ r23,0x00D8 (ok3)
+F0000000 // VNOP
+AAE3B0C3 // VXORad r23,r3,r22
+8AE000D8 // VBEZ r23,0x00D8 (ok3)
+F0000000 // VNOP
+846000CB // VSD r3,0x00CB
+8060000A // VLD r3,0x000A
+84600083 // VSD r3,0x0083
+8020000C // VLD r1,0x000C
+8060000D // VLD r3,0x000D
+82A0000D // VLD r21,0x000D
+82C0000E // VLD r22,0x000E
+A861F805 // VMOVab r3,r1 (reserved rB=31: ignore or NOP)
+AAE3A8C3 // VXORad r23,r3,r21
+8AE00110 // VBEZ r23,0x0110 (ok4)
+F0000000 // VNOP
+AAE3B0C3 // VXORad r23,r3,r22
+8AE00110 // VBEZ r23,0x0110 (ok4)
+F0000000 // VNOP
+846000CC // VSD r3,0x00CC
+8060000D // VLD r3,0x000D
+84600084 // VSD r3,0x0084
+8020000F // VLD r1,0x000F
+80600010 // VLD r3,0x0010
+82A00010 // VLD r21,0x0010
+82C00011 // VLD r22,0x0011
+A861F845 // VMOVah r3,r1 (reserved rB=31: ignore or NOP)
+AAE3A8C3 // VXORad r23,r3,r21
+8AE00148 // VBEZ r23,0x0148 (ok5)
+F0000000 // VNOP
+AAE3B0C3 // VXORad r23,r3,r22
+8AE00148 // VBEZ r23,0x0148 (ok5)
+F0000000 // VNOP
+846000CD // VSD r3,0x00CD
+80600010 // VLD r3,0x0010
+84600085 // VSD r3,0x0085
+F0000000 // VNOP
+F0000000 // VNOP
+00000000 // END (testbench termination word)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)
+F0000000 // VNOP (unused instruction memory)

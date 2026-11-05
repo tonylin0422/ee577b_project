@@ -174,6 +174,11 @@ module cardinal_cpu (
         ((opcode == OP_BEZ  && rdData0 == 64'd0) ||
          (opcode == OP_BNEZ && rdData0 != 64'd0));
 
+    wire invalid_ww =
+        (WW == 2'b11) &&
+        (func == F_MULEU || func == F_MULOU ||
+        func == F_SQEU  || func == F_SQOU);
+
     // Register file 
     register_file register_file_inst (
         .clk(clk),
@@ -309,7 +314,7 @@ module cardinal_cpu (
             case (opcode)
                 // Arithmetic / logical instructions
                 OP_RTYPE: begin
-                    if (ppp <= 3'b100 && func >= 6'd1 && func <= 6'd18) begin
+                    if (ppp <= 3'b100 && func >= 6'd1 && func <= 6'd18 && !invalid_ww) begin
                         rdAddr0 = rA;
                         rdAddr1 = rB;
 

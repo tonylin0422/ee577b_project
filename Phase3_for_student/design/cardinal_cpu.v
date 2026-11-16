@@ -38,10 +38,7 @@ module cardinal_cpu (
     output        nicWrEn     // NIC write enable (store to a NIC address)
 );
 
-    // ---------------------------------------------------------------------
-    // TODO: your Phase 2 design plus the NIC interface. Remove these
-    // placeholder assignments when you drive the outputs from your pipeline.
-    // ---------------------------------------------------------------------
+    
     reg [0:31] addr_out_i;
     reg        memEn_i;
     reg        memWrEn_i;

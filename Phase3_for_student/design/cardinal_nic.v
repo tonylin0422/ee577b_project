@@ -64,10 +64,7 @@ module cardinal_nic (
     input         net_polarity  // polarity of the connected router
 );
 
-    // ---------------------------------------------------------------------
-    // TODO: your design. Remove these placeholder assignments when you
-    // drive the outputs.
-    // ---------------------------------------------------------------------
+    
     // Network input/output channel buffers
     reg [63:0] input_buffer;
     reg [63:0] input_buffer_d;

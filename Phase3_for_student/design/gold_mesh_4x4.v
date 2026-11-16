@@ -1,7 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
-// 4x4 Cardinal mesh - top-level module template (EE577B Phase 3)
+// 4x4 Cardinal mesh - top-level module (EE577B Phase 3)
 //
-// PHASE3_MESH_TEMPLATE: REPLACE THIS FILE WITH YOUR PROJECT 1 MESH.
 //
 // This file only fixes the interface of the mesh that cardinal_cmp.v
 // instantiates: the module name gold_mesh_4x4, the parameter PACKET_SIZE
@@ -21,10 +20,6 @@
 // Bit numbering is [PACKET_SIZE-1:0] as in Project 1 (bit 63 = vc bit);
 // cardinal_cmp connects these buses to the NIC's [0:63] buses directly.
 //
-// The placeholder assignments below only let the framework elaborate
-// before you add your mesh (no packet is ever delivered). The grading
-// treats a submission that still contains this template as a missing
-// mesh.
 ////////////////////////////////////////////////////////////////////////////
 module gold_mesh_4x4 #(
     parameter PACKET_SIZE = 64
@@ -145,10 +140,7 @@ module gold_mesh_4x4 #(
     output node15_polarity
 );
 
-    // ---------------------------------------------------------------------
-    // TODO: your Project 1 mesh (sixteen routers and their links). Remove
-    // these placeholders when you add it.
-    // ---------------------------------------------------------------------
+    
     //=======================================================================
     // Generate 4x4 mesh
     //=======================================================================

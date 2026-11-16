@@ -7,7 +7,7 @@ module cardinal_nic (
     input  [1:0]  addr,
     input  [63:0] d_in,
     output [63:0] d_out,
-    input         nicEn, nicEnWr,
+    input         nicEn, nicWrEn,
     input         net_si,
     output        net_ri,
     input  [63:0] net_di,
@@ -57,7 +57,7 @@ module cardinal_nic (
         end
     end
 
-    assign d_out  = nicEn ? d_out_reg : 64'd0;
+    assign d_out  = d_out_reg;
     assign net_so = !reset && net_ro && output_buffer_full && (net_polarity != output_buffer[63]);
     assign net_do = output_buffer;
     assign net_ri = reset || !input_buffer_full;
@@ -73,14 +73,14 @@ module cardinal_nic (
         // Check enable signals and let processor access registers
         case (addr) 
             2'b00: begin
-                if (nicEn && !nicEnWr) begin
+                if (nicEn && !nicWrEn) begin
                     d_out_reg_d = input_buffer;
                     input_buffer_full_d = 1'b0;
                 end
             end
 
             2'b01: begin
-                if (nicEn && !nicEnWr) begin
+                if (nicEn && !nicWrEn) begin
                     d_out_reg_d = {63'd0, input_buffer_full};
                 end
             end
@@ -88,7 +88,7 @@ module cardinal_nic (
             2'b10: begin
                 if (nicEn) begin
                     // Write into output channel buffer if not full
-                    if (nicEnWr && !output_buffer_full) begin
+                    if (nicWrEn && !output_buffer_full) begin
                         output_buffer_d      = d_in;
                         output_buffer_full_d = 1'b1;
                     end
@@ -96,7 +96,7 @@ module cardinal_nic (
             end
 
             2'b11: begin
-                if (nicEn && !nicEnWr) begin
+                if (nicEn && !nicWrEn) begin
                     d_out_reg_d = {63'd0, output_buffer_full};
                 end
             end

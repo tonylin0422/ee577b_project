@@ -1,158 +1,157 @@
-/////////////////////////////////////////////////////////////////////////////
-// Filename    : tb_cardinal_nic.v
-// Description : Basic testbench for the Cardinal NIC (Phase 3)
-//
-// A starting point for your own NIC testbench (handout item 3). It drives
-// the processor side and the router side of one cardinal_nic and checks a
-// few basic operations:
-//   1. reset values: net_so = 0, net_ri = 1, both status registers 0
-//   2. a processor store to the output channel buffer (addr 10), the
-//      output status (addr 11), and the send to the router: net_so must
-//      be 1, with the packet on net_do, at exactly one rising edge, an
-//      edge where net_ro = 1 and net_polarity = ~vc (the phase in which
-//      the mesh router transfers that VC). net_so may be a registered or
-//      a combinational output; the router (and this testbench) only looks
-//      at it at the rising edge
-//   3. a packet from the router (net_si) into the input channel buffer:
-//      net_ri drops, the input status (addr 01) reads 1, a load from
-//      addr 00 returns the packet and empties the buffer
-// It does not test blocking (net_ro = 0 for a while), a store to a full
-// output buffer, a second packet while the first waits, sending and
-// receiving in the same cycle, or both VC polarities. Add those cases.
-//
-// The polarity is generated as the mesh router does it: 0 during reset,
-// toggling at every rising edge afterwards. Processor inputs change at
-// falling edges so that they are stable at the rising edge.
-//
-// The TA testbench instantiates cardinal_nic by the port names below.
-/////////////////////////////////////////////////////////////////////////////
+// R1. Drive on falling edges, check transfers on rising edges, and sample
+// registered CPU read data 1 ns later. case_id marks each figure in SimVision.
 `timescale 1ns/10ps
-
-`define CYCLE_TIME 4
-
 module tb_cardinal_nic;
+    reg clk, reset, nicEn, nicWrEn, net_si, net_ro, net_polarity;
+    reg [0:1] addr;
+    reg [0:63] d_in, net_di;
+    wire net_ri, net_so;
+    wire [0:63] d_out, net_do;
+    cardinal_nic NIC (
+        .clk(clk), .reset(reset), .addr(addr), .d_in(d_in), .d_out(d_out),
+        .nicEn(nicEn), .nicWrEn(nicWrEn), .net_si(net_si), .net_ri(net_ri),
+        .net_di(net_di), .net_so(net_so), .net_ro(net_ro), .net_do(net_do),
+        .net_polarity(net_polarity)
+    );
 
-reg         clk, reset;
-reg  [0:1]  addr;
-reg  [0:63] d_in;
-wire [0:63] d_out;
-reg         nicEn, nicWrEn;
-reg         net_si, net_ro, net_polarity;
-reg  [0:63] net_di;
-wire        net_ri, net_so;
-wire [0:63] net_do;
+    localparam [0:63] EVEN = 64'h1001_1234_5678_9ABC,
+                      ODD  = 64'h9001_ABCD_1357_2468,
+                      RX   = 64'h2003_CAFE_F00D_2211;
+    reg [7:0] case_id;
+    reg [0:63] pending_packet;
+    reg pending;
+    integer sends, receives, simultaneous, case_start;
 
-reg  [0:63] packet;
-integer     errors, sends, k;
+    always #2 clk = ~clk;
+    always @(posedge clk)
+        if (reset) net_polarity <= 0;
+        else net_polarity <= ~net_polarity;
 
-cardinal_nic NIC (
-	.clk(clk), .reset(reset),
-	.addr(addr), .d_in(d_in), .d_out(d_out), .nicEn(nicEn), .nicWrEn(nicWrEn),
-	.net_si(net_si), .net_ri(net_ri), .net_di(net_di),
-	.net_so(net_so), .net_ro(net_ro), .net_do(net_do), .net_polarity(net_polarity)
-	);
+    task check;
+        input [8*48-1:0] what;
+        input [0:63] actual, expected;
+        begin
+            if (actual !== expected) begin
+                $display("NIC TEST FAILED R1(%c) %0t ns %0s expected=%h observed=%h",
+                         case_id, $time, what, expected, actual);
+                $finish;
+            end
+        end
+    endtask
 
-always #(`CYCLE_TIME / 2.0) clk = ~clk;
+    // The scoreboard queues a processor store only if its slot was free
+    // before this edge. It retires a packet only on an observed transfer.
+    always @(posedge clk) begin
+        if (reset) pending = 0;
+        else begin
+            if (net_so !== 0 && net_so !== 1) check("known net_so", net_so, 0);
+            if (net_so) begin
+                check("queued packet", pending, 1);
+                check("router ready", net_ro, 1);
+                check("opposite VC phase", net_polarity, !pending_packet[0]);
+                check("delivered packet", net_do, pending_packet);
+                sends = sends + 1;
+            end
+            if (net_si) begin
+                check("receiver handshake", net_ri, 1);
+                receives = receives + 1;
+                if (net_so) simultaneous = simultaneous + 1;
+            end
+            if (nicEn && nicWrEn && addr == 2 && !pending) begin
+                pending_packet = d_in;
+                pending = 1;
+            end
+            if (net_so) pending = 0;
+        end
+    end
 
-// Polarity of the connected router
-always @(posedge clk)
-	if (reset) net_polarity <= 1'b0;
-	else       net_polarity <= ~net_polarity;
+    // Called on a falling edge; inputs stay stable for exactly one transfer edge.
+    task cycle;
+        begin
+            @(posedge clk); #1;
+            @(negedge clk);
+        end
+    endtask
+    task store_packet;
+        input [0:63] packet;
+        begin
+            nicEn = 1; nicWrEn = 1; addr = 2; d_in = packet;
+            cycle;
+            nicEn = 0; nicWrEn = 0;
+        end
+    endtask
+    task load_check;
+        input [0:1] address;
+        input [0:63] expected;
+        begin
+            nicEn = 1; nicWrEn = 0; addr = address;
+            @(posedge clk); #1; check("CPU read data", d_out, expected);
+            @(negedge clk); nicEn = 0;
+        end
+    endtask
+    task start_case;
+        input [7:0] id;
+        begin case_id = id; case_start = $time; end
+    endtask
+    task pass_case;
+        begin
+            $display("NIC CASE R1(%c) PASS  time_ns=%0d..%0d sends=%0d receives=%0d",
+                     case_id, case_start, $time, sends, receives);
+        end
+    endtask
 
-// Count the edges at which net_so is 1 (sampled like a router does) and
-// check the packet on net_do at those edges
-always @(posedge clk) begin
-	if (!reset && net_so === 1'b1) begin
-		sends = sends + 1;
-		$display("%0t: net_so = 1 at this edge, net_do = %h, net_polarity = %0d",
-			$time, net_do, net_polarity);
-		if (net_do !== packet) begin
-			$display("  ERROR: net_do should be %h", packet);
-			errors = errors + 1;
-		end
-	end
-end
+    initial begin
+        $timeformat(-9, 0, "", 0);
+        clk = 0; reset = 1; net_polarity = 0;
+        addr = 0; d_in = 0; net_di = 0; net_si = 0; net_ro = 0;
+        nicEn = 0; nicWrEn = 0; sends = 0; receives = 0; simultaneous = 0;
+        start_case("a");
+        repeat (5) cycle;
+        check("ready after reset", net_ri, 1); check("send after reset", net_so, 0);
+        check("CPU output after reset", d_out, 0);
+        reset = 0;
+        load_check(1, 0); load_check(3, 0); pass_case;
 
-task check;
-	input [8*64-1:0] what;
-	input [0:63]     got, want;
-	begin
-		if (got !== want) begin
-			$display("%0t: ERROR: %0s is %h, expected %h", $time, what, got, want);
-			errors = errors + 1;
-		end else
-			$display("%0t: ok: %0s = %h", $time, what, got);
-	end
-endtask
+        start_case("b"); net_ro = 1;
+        store_packet(EVEN); repeat (4) cycle;
+        check("unblocked sends", sends, 1); load_check(3, 0); pass_case;
 
-// A processor load: drive the address at a falling edge, the register
-// appears on d_out after the next rising edge
-task cpu_load;
-	input  [0:1]  a;
-	output [0:63] value;
-	begin
-		@(negedge clk);
-		nicEn = 1; nicWrEn = 0; addr = a;
-		@(posedge clk); #1;
-		value = d_out;
-		@(negedge clk);
-		nicEn = 0;
-	end
-endtask
+        start_case("c"); net_ro = 0;
+        store_packet(ODD); repeat (6) cycle;
+        load_check(3, 1); check("blocked sends", sends, 1);
+        net_ro = 1; repeat (4) cycle; check("released exactly once", sends, 2);
+        load_check(3, 0); pass_case;
 
-task cpu_store;
-	input [0:1]  a;
-	input [0:63] value;
-	begin
-		@(negedge clk);
-		nicEn = 1; nicWrEn = 1; addr = a; d_in = value;
-		@(negedge clk);
-		nicEn = 0; nicWrEn = 0;
-	end
-endtask
+        start_case("d"); net_ro = 0; load_check(3, 0);
+        store_packet(EVEN); load_check(3, 1); pass_case;
 
-reg [0:63] value;
+        start_case("e"); store_packet(ODD); load_check(3, 1);
+        net_ro = 1; repeat (4) cycle; check("original packet only", sends, 3);
+        load_check(3, 0); pass_case;
 
-initial begin
-	clk = 0; reset = 1; errors = 0; sends = 0;
-	addr = 0; d_in = 0; nicEn = 0; nicWrEn = 0; net_si = 0; net_ro = 0; net_di = 0;
-	packet = 64'h9001_0000_0000_0001;	// vc 1, to node 1 (x 1, y 0), 1 hop, source 0, payload 0001
+        start_case("f"); net_si = 1; net_di = RX; cycle; net_si = 0;
+        check("input backpressure", net_ri, 0); load_check(1, 1);
+        load_check(0, RX); check("input free after read", net_ri, 1);
+        load_check(1, 0); pass_case;
 
-	// 1. reset
-	repeat (3) @(negedge clk);
-	check("net_so during reset", net_so, 0);
-	check("net_ri during reset", net_ri, 1);
-	reset = 0;
-	cpu_load(2'b01, value); check("input status after reset", value, 0);
-	cpu_load(2'b11, value); check("output status after reset", value, 0);
+        start_case("g"); nicEn = 1; addr = 0; cycle; nicEn = 0;
+        // Data from an empty slot is unspecified. Check only the specified state.
+        check("empty read preserves ready", net_ri, 1); load_check(1, 0); pass_case;
 
-	// 2. processor store, then the send to the router
-	cpu_store(2'b10, packet);
-	cpu_load(2'b11, value); check("output status after the store", value, 1);
-	@(negedge clk);
-	net_ro = 1;			// the router can accept a packet
-	repeat (4) @(negedge clk);	// the eligible polarity comes within 2 cycles
-	check("number of edges with net_so = 1", sends, 1);
-	cpu_load(2'b11, value); check("output status after the send", value, 0);
-	net_ro = 0;
+        start_case("h"); net_ro = 0; net_si = 1; net_di = RX;
+        store_packet(ODD); net_si = 0; // CPU store and router arrival share an edge.
+        load_check(0, RX);
+        while (net_polarity != 0) cycle;
+        net_ro = 1; net_si = 1; net_di = EVEN; cycle; net_si = 0;
+        check("simultaneous router send and receive", simultaneous, 1);
+        load_check(0, EVEN); load_check(3, 0); pass_case;
 
-	// 3. a packet from the router, then the processor reads it
-	@(negedge clk);
-	net_si = 1; net_di = 64'h0000_0002_0000_0200;	// vc 0, to node 0, delivered (hop 0), source 2
-	@(negedge clk);
-	net_si = 0;
-	check("net_ri with a full input buffer", net_ri, 0);
-	cpu_load(2'b01, value); check("input status with a packet", value, 1);
-	cpu_load(2'b00, value); check("input buffer", value, 64'h0000_0002_0000_0200);
-	cpu_load(2'b01, value); check("input status after the read", value, 0);
-	check("net_ri after the read", net_ri, 1);
-
-	repeat (2) @(negedge clk);
-	if (errors == 0)
-		$display("BASIC NIC TEST PASSED");
-	else
-		$display("BASIC NIC TEST FAILED: %0d error(s)", errors);
-	$finish;
-end
-
+        start_case("i"); store_packet(EVEN); repeat (4) cycle;
+        store_packet(ODD); repeat (4) cycle;
+        check("total sends on legal phases", sends, 6);
+        check("total packets received", receives, 3);
+        cycle; check("disabled CPU read data", d_out, 0); pass_case;
+        $display("NIC TEST PASSED");
+        $finish;
+    end
 endmodule

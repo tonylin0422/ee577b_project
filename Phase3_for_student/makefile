@@ -67,7 +67,8 @@ UNORDERED ?= 5:7
 DUMP_DIR  ?= dumps
 WAVE_DIR  ?= waves
 SIM_ARGS   = +PREFIX=$(PREFIX) +DUMP=$(DUMP_DIR)/$(notdir $(PREFIX))
-TEST_ARGS  = $(SIM_ARGS) +EXPECTED=$(EXPECTED) $(if $(UNORDERED),+UNORDERED=$(UNORDERED))
+RUNS      ?= 2
+TEST_ARGS  = $(SIM_ARGS) +RUNS=$(RUNS) $(CHECK_ARGS) +EXPECTED=$(EXPECTED) $(if $(UNORDERED),+UNORDERED=$(UNORDERED))
 
 NCVLOG_SWITCHES = \
 	-STATUS \
@@ -142,10 +143,10 @@ sim: elab~
 
 test: elab~
 	@mkdir -p $(DUMP_DIR)
-	ncsim $(NCSIM_SWITCHES_NO_GUI) work.$(TOP) $(TEST_ARGS)
+	@set -o pipefail; ncsim $(NCSIM_SWITCHES_NO_GUI) work.$(TOP) $(TEST_ARGS) | awk -f scripts/check_verdict.awk
 
 nic: elab_nic~
-	ncsim $(NCSIM_SWITCHES_NO_GUI) work.$(TOP_NIC)
+	@set -o pipefail; ncsim $(NCSIM_SWITCHES_NO_GUI) work.$(TOP_NIC) | awk -f scripts/check_verdict.awk
 
 simg: elab~
 	@mkdir -p $(DUMP_DIR)
@@ -157,12 +158,21 @@ nicg: elab_nic~
 cmpwave: elab~
 	@mkdir -p $(DUMP_DIR) $(WAVE_DIR)
 	@rm -rf $(WAVE_DIR)/cmp.shm
-	TOP=$(TOP) WAVE_DB=$(WAVE_DIR)/cmp.shm ncsim $(NCSIM_SWITCHES_WAVE) work.$(TOP) $(TEST_ARGS)
+	@set -o pipefail; TOP=$(TOP) WAVE_DB=$(WAVE_DIR)/cmp.shm ncsim $(NCSIM_SWITCHES_WAVE) work.$(TOP) $(TEST_ARGS) | awk -f scripts/check_verdict.awk
 
 nicwave: elab_nic~
 	@mkdir -p $(WAVE_DIR)
 	@rm -rf $(WAVE_DIR)/nic.shm
-	TOP=$(TOP_NIC) WAVE_DB=$(WAVE_DIR)/nic.shm ncsim $(NCSIM_SWITCHES_WAVE) work.$(TOP_NIC)
+	@set -o pipefail; TOP=$(TOP_NIC) WAVE_DB=$(WAVE_DIR)/nic.shm ncsim $(NCSIM_SWITCHES_WAVE) work.$(TOP_NIC) | awk -f scripts/check_verdict.awk
+
+# One command for all R1/R2 checks. The waveform version also records the
+# three views needed for the report, in separate directories for this run.
+.PHONY: verify verify-waves
+verify:
+	@python3 scripts/verify.py
+
+verify-waves:
+	@python3 scripts/verify.py --waves
 
 clean:
 	@rm -f ana~ elab~ elab_nic~ ncvlog.log ncelab.log ncsim.log ncsim.key irun.log xrun.log \

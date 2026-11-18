@@ -22,3 +22,5 @@ default.svf
 .simvision/
 
 tb/tb_ai_gen.v
+# Per-run Phase 3 comparison tables, NC-Sim logs and waveform databases
+/phase3-evidence/

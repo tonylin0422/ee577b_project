@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename    : tb_cmp.v
-// Description : Basic testbench for the Cardinal 16-node chip
+// Description : Self-checking testbench for the Cardinal 16-node chip
 //               multiprocessor (Phase 3)
 //
 // The testbench
@@ -13,7 +13,7 @@
 //      not wrap around), so it executes nothing more while the other nodes
 //      finish,
 //   3. waits 5 more cycles to drain the pipelines, prints the cycle count
-//      of every node and dumps data memory locations 0-127 of node N to
+//      of every node and dumps data memory locations 0-31 (sample) or 0-255 (custom) of node N to
 //      "dumps/cmp_test.dmem.N.dump" (the makefile passes +DUMP=dumps/cmp_test;
 //      make clean keeps the dumps/ directory),
 //   4. with +EXPECTED=<prefix> (make test), compares each data memory with
@@ -227,10 +227,79 @@ reg [0:63]    expected;
 reg [0:63]    expected_set [0:255];   // expected values of the unordered range
 reg [0:63]    actual_set   [0:255];
 integer dump_fd, expected_fd;
-integer i, j, k, node, address, checked, errors, n_fields;
+integer i, j, k, node, address, checked, node_checked, errors;
+integer run_number, runs, total_errors, dump_words;
+integer tx_even, rx_even, tx_odd, rx_odd;
+integer tx_count [0:15], rx_count [0:15];
+integer blocked_edges, full_polls, monitor_node;
+reg pending0, poll_response_due;
+reg [0:63] offered0;
+reg check_counts, require_block, compare_expected, keep_passes;
+reg [8*64-1:0] counts_arg;
+reg [0:255] seen;
+wire [0:15] transfers_out = {CMP.node0_net_so, CMP.node1_net_so, CMP.node2_net_so, CMP.node3_net_so,
+    CMP.node4_net_so, CMP.node5_net_so, CMP.node6_net_so, CMP.node7_net_so,
+    CMP.node8_net_so, CMP.node9_net_so, CMP.node10_net_so, CMP.node11_net_so,
+    CMP.node12_net_so, CMP.node13_net_so, CMP.node14_net_so, CMP.node15_net_so};
+wire [0:15] transfers_in = {CMP.node0_net_si, CMP.node1_net_si, CMP.node2_net_si, CMP.node3_net_si,
+    CMP.node4_net_si, CMP.node5_net_si, CMP.node6_net_si, CMP.node7_net_si,
+    CMP.node8_net_si, CMP.node9_net_si, CMP.node10_net_si, CMP.node11_net_si,
+    CMP.node12_net_si, CMP.node13_net_si, CMP.node14_net_si, CMP.node15_net_si};
+wire [0:15] nic_en = {CMP.node0_nicEn, CMP.node1_nicEn, CMP.node2_nicEn, CMP.node3_nicEn,
+    CMP.node4_nicEn, CMP.node5_nicEn, CMP.node6_nicEn, CMP.node7_nicEn,
+    CMP.node8_nicEn, CMP.node9_nicEn, CMP.node10_nicEn, CMP.node11_nicEn,
+    CMP.node12_nicEn, CMP.node13_nicEn, CMP.node14_nicEn, CMP.node15_nicEn};
+wire [0:15] nic_write = {CMP.node0_nicWrEn, CMP.node1_nicWrEn, CMP.node2_nicWrEn, CMP.node3_nicWrEn,
+    CMP.node4_nicWrEn, CMP.node5_nicWrEn, CMP.node6_nicWrEn, CMP.node7_nicWrEn,
+    CMP.node8_nicWrEn, CMP.node9_nicWrEn, CMP.node10_nicWrEn, CMP.node11_nicWrEn,
+    CMP.node12_nicWrEn, CMP.node13_nicWrEn, CMP.node14_nicWrEn, CMP.node15_nicWrEn};
 integer lo, hi, count_expected, count_actual;
 integer node_cycles [0:`NODES-1];
 reg     finished, unordered;
+
+// Observe accepted transfers independently of end-of-program memory comparisons.
+// Node 0 is a sender in both blocking programs. Record actual edges for SimVision.
+always @(posedge CLK) begin
+    if (RESET) begin
+        pending0 = 0; poll_response_due = 0; offered0 = 0;
+        blocked_edges = 0;
+        full_polls = 0;
+        for (monitor_node = 0; monitor_node < 16; monitor_node = monitor_node + 1) begin
+            tx_count[monitor_node] = 0;
+            rx_count[monitor_node] = 0;
+        end
+    end else begin
+        for (monitor_node = 0; monitor_node < 16; monitor_node = monitor_node + 1) begin
+            if ((memEn[monitor_node] && addr_out[monitor_node][16:17] == 3) ||
+                (nic_en[monitor_node] && addr_out[monitor_node][16:17] != 3) ||
+                (memEn[monitor_node] && nic_en[monitor_node]) ||
+                (memWrEn[monitor_node] && !memEn[monitor_node]) ||
+                (nic_write[monitor_node] && !nic_en[monitor_node])) begin
+                $display("TEST FAILED: bus enables node=%0d addr=%h time_ns=%0d",
+                         monitor_node, addr_out[monitor_node], $time);
+                $finish;
+            end
+            if (transfers_out[monitor_node]) tx_count[monitor_node] = tx_count[monitor_node] + 1;
+            if (transfers_in[monitor_node]) rx_count[monitor_node] = rx_count[monitor_node] + 1;
+        end
+        if (pending0 && !CMP.node0_net_ro && CMP.node0_polarity != offered0[0]) begin
+            if (blocked_edges == 0)
+                $display("EDGE run=%0d node=0 blocked eligible packet time_ns=%0d", run_number, $time);
+            blocked_edges = blocked_edges + 1;
+        end
+        if (poll_response_due && CMP.node0_dout_nic === 64'd1) full_polls = full_polls + 1;
+        poll_response_due = CMP.node0_nicEn && !CMP.node0_nicWrEn && CMP.node0_addr_nic == 3;
+        if (CMP.node0_nicEn && CMP.node0_nicWrEn && CMP.node0_addr_nic == 2 && !pending0) begin
+            pending0 = 1;
+            offered0 = CMP.node0_din_nic;
+        end
+        if (transfers_out[0]) pending0 = 0;
+        if (transfers_out[0] && tx_count[0] == 1)
+            $display("EDGE run=%0d node=0 first inject time_ns=%0d packet=%h", run_number, $time, CMP.node0_net_do);
+        if (transfers_in[0] && rx_count[0] == 1)
+            $display("EDGE run=%0d node=0 first receive time_ns=%0d packet=%h", run_number, $time, CMP.node0_net_di);
+    end
+end
 
 //// ******************** Helpers ******************** \\\\
 
@@ -325,136 +394,191 @@ function matches;
 	end
 endfunction
 
+task require_input_file;
+    input [8*256-1:0] name;
+    integer fd;
+    begin
+        fd = $fopen(name, "r");
+        if (!fd) begin
+            $display("TEST FAILED: cannot open input %0s", name);
+            $finish;
+        end
+        $fclose(fd);
+    end
+endtask
+
 //// ******************** Stimulus ******************** \\\\
 
 initial
 begin
-	if (!$value$plusargs("PREFIX=%s", prefix)) prefix = "cmp_test";
-	if (!$value$plusargs("DUMP=%s", dump_prefix)) dump_prefix = prefix;
-	unordered = $value$plusargs("UNORDERED=%s", range_arg);
-	lo = 0; hi = -1;
-	if (unordered && $sscanf(range_arg, "%d:%d", lo, hi) != 2) begin
-		$display("ERROR: +UNORDERED expects <lo>:<hi>");
-		$finish;
-	end
+    if (!$value$plusargs("PREFIX=%s", prefix)) prefix = "cmp_test";
+    if (!$value$plusargs("DUMP=%s", dump_prefix)) dump_prefix = prefix;
+    unordered = $value$plusargs("UNORDERED=%s", range_arg);
+    lo = 0; hi = -1;
+    if (unordered && ($sscanf(range_arg, "%d:%d", lo, hi) != 2 || lo < 0 || hi < lo || hi > 255)) begin
+        $display("TEST FAILED: +UNORDERED expects <lo>:<hi>");
+        $finish;
+    end
 
-	// Unset memory words are 0; then load the programs and the data
-	for (node = 0; node < `NODES; node = node + 1) begin
-		clear_node(node);
-		$sformat(imem_name, "%0s.imem.%0d.fill", prefix, node);
-		$sformat(dmem_name, "%0s.dmem.%0d.fill", prefix, node);
-		load_node(node, imem_name, dmem_name);
-	end
+    compare_expected = $value$plusargs("EXPECTED=%s", expected_prefix);
+    if (!$value$plusargs("RUNS=%d", runs)) runs = 1;
+    if (runs < 1) begin $display("TEST FAILED: RUNS must be positive"); $finish; end
+    check_counts = $value$plusargs("COUNTS=%s", counts_arg);
+    if (check_counts && $sscanf(counts_arg, "%d,%d,%d,%d", tx_even, rx_even, tx_odd, rx_odd) != 4) begin
+        $display("TEST FAILED: COUNTS expects even_tx,even_rx,odd_tx,odd_rx"); $finish;
+    end
+    require_block = $test$plusargs("CHECK_BLOCK");
+    keep_passes = $test$plusargs("KEEP_PASSES");
+    dump_words = prefix == "cmp_test" ? 32 : 256;
+    CLK = 0;
+    total_errors = 0;
+    for (run_number = 1; run_number <= runs; run_number = run_number + 1) begin
+        errors = 0;
+        checked = 0;
+        RESET = 1;
+        finished = 0;
+        done = 0;
+        repeat (5) @(negedge CLK);
+        for (node = 0; node < `NODES; node = node + 1) begin
+            node_cycles[node] = -1;
+            clear_node(node);
+            $sformat(imem_name, "%0s.imem.%0d.fill", prefix, node);
+            $sformat(dmem_name, "%0s.dmem.%0d.fill", prefix, node);
+            require_input_file(imem_name);
+            require_input_file(dmem_name);
+            load_node(node, imem_name, dmem_name);
+        end
+        RESET = 0;
 
-	CLK      = 0;
-	RESET    = 1;				// reset the multiprocessor
-	finished = 0;
-	done     = 0;
-	for (k = 0; k < `NODES; k = k + 1) node_cycles[k] = -1;
-	repeat (5) @(negedge CLK);		// hold reset for 5 cycles
-	RESET = 0;
+        // The last instruction of every program is 32'h0000_0000.
+        while (!finished) begin
+            @(negedge CLK);
+            for (node = 0; node < `NODES; node = node + 1)
+                if (!done[node] && inst_in[node] === 32'h00000000) begin
+                    done[node]        = 1;
+                    node_cycles[node] = cycle_number;
+                end
+            if (&done) begin
+                finished = 1;
+                $write("All nodes completed; node cycle counts:");
+                for (node = 0; node < `NODES; node = node + 1) $write(" %0d", node_cycles[node]);
+                $write("\n");
+            end else if (cycle_number >= `MAX_CYCLES) begin
+                finished = 1;
+                errors = errors + 1;
+                $display("TIMEOUT: not every node fetched the end-of-program word after %0d cycles (done, node 0..15: %b)",
+                    cycle_number, done);
+            end
+        end
 
-	// The last instruction of every program is 32'h0000_0000.
-	while (!finished) begin
-		@(negedge CLK);
-		for (node = 0; node < `NODES; node = node + 1)
-			if (!done[node] && inst_in[node] === 32'h00000000) begin
-				done[node]        = 1;
-				node_cycles[node] = cycle_number;
-			end
-		if (&done) begin
-			finished = 1;
-			$write("All nodes completed; node cycle counts:");
-			for (node = 0; node < `NODES; node = node + 1) $write(" %0d", node_cycles[node]);
-			$write("\n");
-		end else if (cycle_number >= `MAX_CYCLES) begin
-			finished = 1;
-			$display("WARNING: not every node fetched the end-of-program word after %0d cycles (done, node 0..15: %b)",
-				cycle_number, done);
-		end
-	end
+        // Let the pipelines drain
+        repeat (5) @(negedge CLK);
 
-	// Let the pipelines drain
-	repeat (5) @(negedge CLK);
+        // The final pass keeps the framework filename; prior passes have separate dumps.
+        for (node = 0; node < `NODES; node = node + 1) begin
+            $sformat(file_name, "%0s.dmem.%0d.dump", dump_prefix, node);
+            if (keep_passes && run_number < runs)
+                $sformat(file_name, "%0s.run%0d.dmem.%0d.dump", dump_prefix, run_number, node);
+            dump_fd = $fopen(file_name, "w");
+            if (dump_fd == 0) begin
+                $display("TEST FAILED: cannot write %0s", file_name); $finish;
+            end
+            for (i = 0; i < dump_words; i = i + 1)
+                $fdisplay(dump_fd, "Memory location #%d : %h ", i, dmem_word(node, i));
+            $fclose(dump_fd);
+        end
+        $sformat(file_name, "%0s.dmem.N.dump", dump_prefix);
+        $display("Data memories of the %0d nodes dumped to %0s", `NODES, file_name);
 
-	// Dump data memory locations 0-127 of every node
-	for (node = 0; node < `NODES; node = node + 1) begin
-		$sformat(file_name, "%0s.dmem.%0d.dump", dump_prefix, node);
-		dump_fd = $fopen(file_name);
-		if (dump_fd == 0)
-			$display("ERROR: cannot write %0s (does the directory exist?)", file_name);
-		for (i = 0; i < 128; i = i + 1)
-			$fdisplay(dump_fd, "Memory location #%d : %h ", i, dmem_word(node, i));
-		$fclose(dump_fd);
-	end
-	$sformat(file_name, "%0s.dmem.N.dump", dump_prefix);
-	$display("Data memories of the %0d nodes dumped to %0s", `NODES, file_name);
-
-	// Compare with expected dumps ("Memory location # <n> : <hex>" lines)
-	if ($value$plusargs("EXPECTED=%s", expected_prefix)) begin
-		checked = 0;
-		errors  = 0;
-		for (node = 0; node < `NODES; node = node + 1) begin
-			$sformat(file_name, "%0s.%0d.dump", expected_prefix, node);
-			expected_fd = $fopen(file_name, "r");
-			if (expected_fd == 0) begin
-				$display("TEST FAILED: cannot open %0s", file_name);
-				errors = errors + 1;
-			end else begin
-				for (k = 0; k < 256; k = k + 1) begin expected_set[k] = 64'bx; actual_set[k] = 64'bx; end
-				line = 0;
-				while ($fgets(line, expected_fd)) begin
-					if ($sscanf(line, "%s %s %s %d %s %h", word1, word2, word3, address,
-					            word4, expected) == 6 && expected !== 64'bx) begin
-						checked = checked + 1;
-						if (unordered && address >= lo && address <= hi) begin
-							expected_set[address] = expected;
-							actual_set[address]   = dmem_word(node, address);
-						end else if (!matches(dmem_word(node, address), expected)) begin
-							errors = errors + 1;
-							$display("MISMATCH node %0d memory location %0d: expected %h, got %h",
-								node, address, expected, dmem_word(node, address));
-						end
-					end
-					line = 0;
-				end
-				$fclose(expected_fd);
-				// The unordered range: every expected value must be found as
-				// often as it is expected, and every found value must be one
-				// of the expected values.
-				if (unordered)
-					for (i = lo; i <= hi; i = i + 1)
-						if (expected_set[i] !== 64'bx) begin
-							count_expected = 0; count_actual = 0;
-							for (j = lo; j <= hi; j = j + 1) begin
-								if (matches(expected_set[j], expected_set[i])) count_expected = count_expected + 1;
-								if (matches(actual_set[j], expected_set[i]))   count_actual   = count_actual + 1;
-							end
-							if (count_expected != count_actual) begin
-								errors = errors + 1;
-								$display("MISMATCH node %0d locations %0d-%0d (any order): expected value %h found %0d time(s), expected %0d",
-									node, lo, hi, expected_set[i], count_actual, count_expected);
-							end
-							count_actual = 0;
-							for (j = lo; j <= hi; j = j + 1)
-								if (expected_set[j] !== 64'bx && matches(actual_set[i], expected_set[j]))
-									count_actual = count_actual + 1;
-							if (count_actual == 0) begin
-								errors = errors + 1;
-								$display("MISMATCH node %0d memory location %0d: value %h is not among the expected values",
-									node, i, actual_set[i]);
-							end
-						end
-			end
-		end
-		if (checked == 0)
-			$display("TEST FAILED: no memory locations found in %0s.N.dump", expected_prefix);
-		else if (errors == 0)
-			$display("TEST PASSED: all %0d memory locations match %0s.N.dump", checked, expected_prefix);
-		else
-			$display("TEST FAILED: %0d mismatches against %0s.N.dump", errors, expected_prefix);
-	end
-	$finish;
+        // Compare with expected dumps ("Memory location # <n> : <hex>" lines)
+        if (compare_expected) begin
+            for (node = 0; node < `NODES; node = node + 1) begin
+                $sformat(file_name, "%0s.%0d.dump", expected_prefix, node);
+                expected_fd = $fopen(file_name, "r");
+                if (expected_fd == 0) begin
+                    $display("TEST FAILED: cannot open %0s", file_name);
+                    errors = errors + 1;
+                end else begin
+                    for (k = 0; k < 256; k = k + 1) begin expected_set[k] = 64'bx; actual_set[k] = 64'bx; end
+                    seen = 0; node_checked = 0;
+                    line = 0;
+                    while ($fgets(line, expected_fd)) begin
+                        if ($sscanf(line, "%s %s %s %d %s %h", word1, word2, word3, address,
+                                    word4, expected) != 6 || address < 0 || address > 255 || seen[address]) begin
+                            errors = errors + 1;
+                            $display("Malformed or duplicate expected row in %0s: %0s", file_name, line);
+                        end else begin
+                            seen[address] = 1;
+                            if (expected !== 64'bx) begin
+                                node_checked = node_checked + 1;
+                                checked = checked + 1;
+                                if (unordered && address >= lo && address <= hi) begin
+                                    expected_set[address] = expected;
+                                    actual_set[address]   = dmem_word(node, address);
+                                end else if (!matches(dmem_word(node, address), expected)) begin
+                                    errors = errors + 1;
+                                    $display("MISMATCH node %0d memory location %0d: expected %h, got %h",
+                                        node, address, expected, dmem_word(node, address));
+                                end
+                            end
+                        end
+                        line = 0;
+                    end
+                    $fclose(expected_fd);
+                    if (node_checked == 0) begin
+                        errors = errors + 1; $display("Empty comparison for node %0d", node);
+                    end
+                    // The unordered range: every expected value must be found as
+                    // often as it is expected, and every found value must be one
+                    // of the expected values.
+                    if (unordered)
+                        for (i = lo; i <= hi; i = i + 1)
+                            if (expected_set[i] !== 64'bx) begin
+                                count_expected = 0; count_actual = 0;
+                                for (j = lo; j <= hi; j = j + 1) begin
+                                    if (matches(expected_set[j], expected_set[i])) count_expected = count_expected + 1;
+                                    if (matches(actual_set[j], expected_set[i]))   count_actual   = count_actual + 1;
+                                end
+                                if (count_expected != count_actual) begin
+                                    errors = errors + 1;
+                                    $display("MISMATCH node %0d locations %0d-%0d (any order): expected value %h found %0d time(s), expected %0d",
+                                        node, lo, hi, expected_set[i], count_actual, count_expected);
+                                end
+                                count_actual = 0;
+                                for (j = lo; j <= hi; j = j + 1)
+                                    if (expected_set[j] !== 64'bx && matches(actual_set[i], expected_set[j]))
+                                        count_actual = count_actual + 1;
+                                if (count_actual == 0) begin
+                                    errors = errors + 1;
+                                    $display("MISMATCH node %0d memory location %0d: value %h is not among the expected values",
+                                        node, i, actual_set[i]);
+                                end
+                            end
+                end
+            end
+        end
+        for (node = 0; node < 16; node = node + 1) begin
+            if (check_counts && (tx_count[node] != (node % 2 == 0 ? tx_even : tx_odd) ||
+                                 rx_count[node] != (node % 2 == 0 ? rx_even : rx_odd))) begin
+                $display("COUNT MISMATCH node=%0d tx=%0d rx=%0d", node, tx_count[node], rx_count[node]);
+                errors = errors + 1;
+            end
+            $display("NODE run=%0d node=%0d cycles=%0d tx=%0d rx=%0d", run_number, node,
+                     node_cycles[node], tx_count[node], rx_count[node]);
+        end
+        if (require_block && (blocked_edges == 0 || full_polls == 0)) begin
+            errors = errors + 1;
+            $display("BLOCKING MISSED: sender must see backpressure and poll a full output buffer");
+        end
+        $display("RUN %0d words=%0d mismatches=%0d blocked_edges=%0d full_polls=%0d",
+                 run_number, checked, errors, blocked_edges, full_polls);
+        total_errors = total_errors + errors;
+    end // repeat in the same CMP instance
+    if (total_errors != 0)
+        $display("TEST FAILED: %0d errors in %0s", total_errors, prefix);
+    else if (compare_expected)
+        $display("TEST PASSED: %0s (%0d runs)", prefix, runs);
+    $finish;
 end
 
 endmodule

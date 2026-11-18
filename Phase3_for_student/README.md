@@ -1,5 +1,7 @@
 # EE577B Project Phase 3: Cardinal NIC and Chip Multiprocessor Framework
 
+The team verification suite runs with `make verify` or `make verify-waves`. See [Verification on the course server](VERIFICATION.md) for results and the R1/R2 waveform guide. The supplied framework instructions follow.
+
 This directory is the simulation framework for Phase 3. Implement the
 Cardinal NIC (`cardinal_nic`), extend your Phase 2 processor with the NIC
 interface, integrate sixteen processors, sixteen NICs and your 4x4 Cardinal

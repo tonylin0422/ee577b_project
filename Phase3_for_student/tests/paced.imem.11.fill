@@ -1,0 +1,83 @@
+8020001E  // PC 000  vld r1, 0x001E
+8040001F  // PC 004  vld r2, 0x001F
+A82110C7  // PC 008  vsubad r1, r1, r2
+8C200008  // PC 00C  vbnez r1, 0x0008
+8020C001  // PC 010  vld r1, 0xC001
+88200010  // PC 014  vbez r1, 0x0010
+8060C000  // PC 018  vld r3, 0xC000
+84600040  // PC 01C  vsd r3, 0x0040
+8020001E  // PC 020  vld r1, 0x001E
+8040001F  // PC 024  vld r2, 0x001F
+A82110C7  // PC 028  vsubad r1, r1, r2
+8C200028  // PC 02C  vbnez r1, 0x0028
+8020C001  // PC 030  vld r1, 0xC001
+88200030  // PC 034  vbez r1, 0x0030
+8060C000  // PC 038  vld r3, 0xC000
+84600041  // PC 03C  vsd r3, 0x0041
+8020001E  // PC 040  vld r1, 0x001E
+8040001F  // PC 044  vld r2, 0x001F
+A82110C7  // PC 048  vsubad r1, r1, r2
+8C200048  // PC 04C  vbnez r1, 0x0048
+8020C001  // PC 050  vld r1, 0xC001
+88200050  // PC 054  vbez r1, 0x0050
+8060C000  // PC 058  vld r3, 0xC000
+84600042  // PC 05C  vsd r3, 0x0042
+8020001E  // PC 060  vld r1, 0x001E
+8040001F  // PC 064  vld r2, 0x001F
+A82110C7  // PC 068  vsubad r1, r1, r2
+8C200068  // PC 06C  vbnez r1, 0x0068
+8020C001  // PC 070  vld r1, 0xC001
+88200070  // PC 074  vbez r1, 0x0070
+8060C000  // PC 078  vld r3, 0xC000
+84600043  // PC 07C  vsd r3, 0x0043
+8020001E  // PC 080  vld r1, 0x001E
+8040001F  // PC 084  vld r2, 0x001F
+A82110C7  // PC 088  vsubad r1, r1, r2
+8C200088  // PC 08C  vbnez r1, 0x0088
+8020C001  // PC 090  vld r1, 0xC001
+88200090  // PC 094  vbez r1, 0x0090
+8060C000  // PC 098  vld r3, 0xC000
+84600044  // PC 09C  vsd r3, 0x0044
+8020001E  // PC 0A0  vld r1, 0x001E
+8040001F  // PC 0A4  vld r2, 0x001F
+A82110C7  // PC 0A8  vsubad r1, r1, r2
+8C2000A8  // PC 0AC  vbnez r1, 0x00A8
+8020C001  // PC 0B0  vld r1, 0xC001
+882000B0  // PC 0B4  vbez r1, 0x00B0
+8060C000  // PC 0B8  vld r3, 0xC000
+84600045  // PC 0BC  vsd r3, 0x0045
+8020001E  // PC 0C0  vld r1, 0x001E
+8040001F  // PC 0C4  vld r2, 0x001F
+A82110C7  // PC 0C8  vsubad r1, r1, r2
+8C2000C8  // PC 0CC  vbnez r1, 0x00C8
+8020C001  // PC 0D0  vld r1, 0xC001
+882000D0  // PC 0D4  vbez r1, 0x00D0
+8060C000  // PC 0D8  vld r3, 0xC000
+84600046  // PC 0DC  vsd r3, 0x0046
+8020001E  // PC 0E0  vld r1, 0x001E
+8040001F  // PC 0E4  vld r2, 0x001F
+A82110C7  // PC 0E8  vsubad r1, r1, r2
+8C2000E8  // PC 0EC  vbnez r1, 0x00E8
+8020C001  // PC 0F0  vld r1, 0xC001
+882000F0  // PC 0F4  vbez r1, 0x00F0
+8060C000  // PC 0F8  vld r3, 0xC000
+84600047  // PC 0FC  vsd r3, 0x0047
+8020001E  // PC 100  vld r1, 0x001E
+8040001F  // PC 104  vld r2, 0x001F
+A82110C7  // PC 108  vsubad r1, r1, r2
+8C200108  // PC 10C  vbnez r1, 0x0108
+8020C001  // PC 110  vld r1, 0xC001
+88200110  // PC 114  vbez r1, 0x0110
+8060C000  // PC 118  vld r3, 0xC000
+84600048  // PC 11C  vsd r3, 0x0048
+8020001E  // PC 120  vld r1, 0x001E
+8040001F  // PC 124  vld r2, 0x001F
+A82110C7  // PC 128  vsubad r1, r1, r2
+8C200128  // PC 12C  vbnez r1, 0x0128
+8020C001  // PC 130  vld r1, 0xC001
+88200130  // PC 134  vbez r1, 0x0130
+8060C000  // PC 138  vld r3, 0xC000
+84600049  // PC 13C  vsd r3, 0x0049
+F0000000  // PC 140  vnop
+F0000000  // PC 144  vnop
+00000000  // PC 148  end
